@@ -1,168 +1,115 @@
 <div align="center">
-<!-- <img src="https://i0.wp.com/gluonhq.com/wp-content/uploads/2018/05/heroku-logotype-vertical-purple.png" alt="Heorku Image" align="right" width="150">-->
+<img src="assets/ssleech-thumbnail.jpg" alt="SSLeech Telegram bot thumbnail" width="760">
 
-# ⚕️ ***HEROKU DEPLOY GUIDE***
+# SSLeech — Heroku Deploy 
+
+Deploy the SSLeech Telegram bot to Heroku Container Stack using a guided Google Colab notebook.
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/SunilSSBots/HK-Deploy/blob/main/ssleech_hk_deploy.ipynb)
+[![Bot Repository](https://img.shields.io/badge/Bot_Repository-SSLeech-2563eb?style=flat&logo=github&logoColor=white)](https://github.com/SunilSSBots/ssleech-hk)
+[![Docker Image](https://img.shields.io/badge/Docker_Image-ssbots__heroku-2496ed?style=flat&logo=docker&logoColor=white)](https://hub.docker.com/r/sunilsharmanp/ssbots_heroku)
+
+<br>
+
 
 </div>
 
 ---
 
-### 1️⃣ ***METHOD 1: (Google Collab Guide)***
+## Overview
 
-<details>
-  <summary><b>Expand All Steps to Deploy <sup><kbd>Click Here</kbd></sup></b></summary>
+HK-Deploy provides the deployment files and automation required to run SSLeech on Heroku. The included Google Colab notebook is optimized for a guided, mobile-friendly setup and supports creating, configuring, deploying, and monitoring one or multiple Heroku apps.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/PainKiller3/WZ-Deploy/blob/wzv3.1.3/wzv3_hk_deploy.ipynb)
+## Highlights
 
-**Step 1 :** 
+- Guided Google Colab deployment workflow
+- Support for single-app and multi-app deployments
+- Heroku Container Stack configuration
+- MongoDB-backed bot configuration
+- Optional GitHub Actions deployment workflow
+- Built-in log viewing and Heroku logout steps
 
+## Repository Structure
 
-
-</details>
+```text
+HK-Deploy/
+├── ssleech_hk_deploy.ipynb   # Main Google Colab deployment notebook
+├── assets/
+│   └── ssleech-thumbnail.jpg  # SSLeech project thumbnail
+├── Dockerfile                 # Heroku container build file
+├── heroku.yml                 # Heroku stack configuration
+├── start.sh                   # Container startup script
+├── update.py                  # Upstream sync and dependency installer
+└── requirements.txt           # Python dependencies
+```
 
 ---
 
-### 2️⃣ ***METHOD 2: (Heroku CLI Guide)***
+## Deployment Options
 
-<details>
-  <summary><b>Expand All Steps to Deploy <sup><kbd>Click Here</kbd></sup></b></summary>
+### Option 1: Google Colab — Recommended
 
-**Step 1 :** Git clone this Repo and change directory
-> Make sure git is Installed in your system or quick run `apt-get install git pip curl -y`
+The Colab notebook provides the simplest deployment experience, especially on mobile devices.
 
-```shell
-git clone https://github.com/PainKiller3/WZ-Deploy wzbot && cd wzbot
-```
+<a href="https://colab.research.google.com/github/SunilSSBots/HK-Deploy/blob/main/ssleech_hk_deploy.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open ssleech_hk_deploy.ipynb in Google Colab">
+</a>
 
-**Step 2 :** Now Install Heroku in your Sytem or checkout Official Heroku Deploy Docs, or Download via `apt-get` or `npm`
-> For Android : Use `termux` (Download via FDroid) for CLI usage
+Run the notebook cells from top to bottom:
 
-**The script requires sudo and isn’t Windows compatible.**
-```shell
-curl https://cli-assets.heroku.com/install.sh | sh
-```
+| Step | Notebook section | Action |
+|------|------------------|--------|
+| 1 | Heroku Login | Enter your Heroku email and personal API token. |
+| 2 | Create Heroku App | Choose app name, region, and optional team. |
+| 3 | SSLeech Configuration | Enter bot credentials, MongoDB URI, and upstream branch. |
+| 4 | Deploy Bot | Enter the configured app name or names and start deployment. |
+| 5 | Logs / Logout | Monitor the deployment, then log out of Heroku when finished. |
 
-**Install with Ubuntu / Debian apt-get**
-```shell
-curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-```
+The Docker build typically takes several minutes. Once deployment is complete, send `/start` to the bot on Telegram.
 
-**Install via `npm` (Not Recommanded)**
-```shell
-npm install -g heroku
-```
+### Option 2: GitHub Actions — Advanced
 
-**Official Heroku Install Guide :** [Check Here](https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli)
+1. Fork the [SSLeech repository](https://github.com/SunilSSBots/ssleech-hk).
+2. Add the required secrets under **Settings → Secrets and variables → Actions**.
+3. Open the **Actions** tab and run the deployment workflow manually.
 
-**Step 3 :** Login into Heroku and Log In CLI via Browser 
-
-_With Browser_
-```shell
-heroku login
-```
-
-**OR**
-
-_Without Browser_
-```shell
-heroku login -i
-```
-
-- Put `Heroku Email` : Heroku Email `email@example.com`
-- Put `Heroku Password` : Heroku API Key. Get from [Here](https://dashboard.heroku.com/account)
-
-**Step 4 :** Create Heroku App and specify stack and region with App Name
-
-```shell
-heroku create --region us --stack container APP_NAME
-```
-
-**To Be Noted**: Copy the `BASE_URL` after the App is Created and Put the Value in `BASE_URL` when editing `config.py`
-
-**Notes:**
-- `--region eu` for Europe Server.
-- `--region us` for United States Server.
-- `APP_NAME` should be replaced with your unique app name _(Optional)_. If not given it generates a random name.
-- `--stack container` for setting stack to container for Dockerfile.
-- `--buildpack heroku/python` for using build slug for repo deploy and build.
-
-**Step 5 :** Now set all the Required Variables and Files into this Branch wzv3.1.3 Repo like config.py, accounts.zip, token.pickle, All Private Files(optional)- 
-  > Only config.py Mabdatory with Only Mandatory Vars Only, After that Put all Private Files or Vars via Bot Settings `/bs`
-
-**To Edit Inside CLI (nano Editor):** _(Termux Users)_
-```shell
-nano config.py
-```
-- **Sample config.py** _(Copy these and Paste in Editor and Fill Up)_
-  ```
-  BOT_TOKEN = ""
-  TELEGRAM_API = 0
-  TELEGRAM_HASH = ""
-  OWNER_ID = 0
-  UPSTREAM_REPO = ""
-  UPSTREAM_BRANCH = "wzv3.1.3"
-  DATABASE_URL = ""
-  BASE_URL = ""
-  ```
-- After Setup Save from Editor via `CTRL + O` and `Enter`, followed via `CTRL + X` !
-
-**Helpful Commands:**
-- **Exit from nano** : `CTRL + X`
-- **Save File** : `CTRL + O`
-- **Check Help** : `CTRL + G`
-- **Undo Changes** : `ALT + U`
-- ^ means CTRL _(Termux Users)_
-
-**Step 6 :** Set Local git remote for Heroku. Give All Commands One by One.
-
-```shell
-git add . -f
-git commit -m "HK Setup"
-heroku git:remote -a APP_NAME
-```
-
-**Step 7 :** Now push to Heroku via git forcefully to build.
-
-```shell
-git push heroku HEAD:main -f
-```
-
-**Heroku Logs:** When checking Logs, Use this will give Complete Logs.
-```shell
-heroku logs -a APP_NAME -t
-```
-
-- Add arg `-t` for Live Stream Logs and Use `CTRL + C` to Exit from it.
-
-**All Heroku CLI Commands :** [Click Here](https://devcenter.heroku.com/articles/heroku-cli-commands#heroku-config-set)
-
-</details>
+| Secret | Description |
+|--------|-------------|
+| `HEROKU_EMAIL` | Heroku account email |
+| `HEROKU_API_KEY` | Heroku personal API token |
+| `HEROKU_APP_NAME` | Target Heroku app name |
+| `BOT_TOKEN` | Telegram bot token |
+| `OWNER_ID` | Telegram owner/user ID |
+| `TELEGRAM_API` | Telegram API ID |
+| `TELEGRAM_HASH` | Telegram API hash |
+| `DATABASE_URL` | MongoDB connection URI |
 
 ---
 
-### 🔠 ***Variables Description:***
+## Required Configuration
 
-<details>
-  <summary><b>View All Variables <sup><kbd>Click Here</kbd></sup></b></summary>
+| Variable | Purpose | Where to get it |
+|----------|---------|-----------------|
+| `BOT_TOKEN` | Authenticates the Telegram bot | [@BotFather](https://t.me/BotFather) |
+| `OWNER_ID` | Identifies the bot owner | [@userinfobot](https://t.me/userinfobot) |
+| `TELEGRAM_API` | Telegram API ID | [my.telegram.org/apps](https://my.telegram.org/apps) |
+| `TELEGRAM_HASH` | Telegram API hash | [my.telegram.org/apps](https://my.telegram.org/apps) |
+| `DATABASE_URL` | MongoDB connection URI | [MongoDB Atlas](https://cloud.mongodb.com) |
+| `UPSTREAM_REPO` | SSLeech source repository | `https://github.com/SunilSSBots/ssleech-hk` |
+| `UPSTREAM_BRANCH` | Source branch to deploy | `ssleech-hk` |
 
-- `BOT_TOKEN`: Telegram Bot Token that you got from [BotFather](https://t.me/BotFather). `Str`
-- `OWNER_ID`: Telegram User ID (not username) of the Owner of the bot. `Int`
-- `TELEGRAM_API`: This is to authenticate your Telegram account for downloading Telegram files. You can get this from <https://my.telegram.org>. `Int`
-- `TELEGRAM_HASH`: This is to authenticate your Telegram account for downloading Telegram files. You can get this from <https://my.telegram.org>. `Str`
-- `BASE_URL`: Valid BASE URL where the bot is deployed to use torrent web files selection. Format of URL should be `https://app-name-random_code.herokuapp.com/`, where `app-name` is the name of your heroku app Paste the URL got when the App was Made. `Str`
-- `DATABASE_URL`: Database URL of MongoDb to store all your files and Vars. Adding this will be Helpful. `Str`
-- `UPSTREAM_REPO`: GitLab repository URL, if your repo is private add `https://<deploy_token>:<password>@gitlab.com/<your_username>/<repository_name>` format. `Str`.
-    - **NOTE**: Don't forget to remove '<' and '>'. To generate gitlab Deploy Token. Follow [This](https://docs.gitlab.com/ee/user/project/deploy_tokens/#create-a-deploy-token)
-        - Any change in docker you need to deploy/build again with updated repo to take effect. 
-        - **No Need to delete .gitignore file or any File**
-- `UPSTREAM_BRANCH`: Upstream branch for update. Default is `wzv3.1.3`. `Str`
-
-</details>
 
 ---
 
-### ⚠️ ***Branch Specifications:***
+## Security Notes
 
-- All files to be Uploaded in this `wzv3.1.3` Branch and set Upstream as `wzv3.1.3` Branch of actual repo.
+- Never commit a notebook after entering real credentials.
+- Keep your Heroku API token, Telegram bot token, and MongoDB URI private.
+- Use a private GitHub repository or GitHub Actions secrets for sensitive deployment values.
+- Rotate any credential immediately if it is exposed publicly.
 
----
+## Support
+
+- [SSLeech Issues](https://github.com/SunilSSBots/ssleech-hk/issues)
+- [SSLeech Repository](https://github.com/SunilSSBots/ssleech-hk)
+- [SSBots Heroku Docker Image](https://hub.docker.com/r/sunilsharmanp/ssbots_heroku)
