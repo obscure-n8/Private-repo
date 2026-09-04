@@ -4,6 +4,7 @@ OWNER_ID = 0
 TELEGRAM_API = 0
 TELEGRAM_HASH = ""
 DATABASE_URL = ""
+KUMA_URL = ""
 
 # OPTIONAL CONFIG
 DEFAULT_LANG = "en"
@@ -20,7 +21,11 @@ STREAMWISH_API = ""
 ALLDEBRID_API_KEY = ""
 ALLDEBRID_NO_SEED_TIMEOUT = 180
 EXCLUDED_EXTENSIONS = ""
+BLACKLISTED_KEYWORDS = (
+    "hdcam camrip hdtc hdts predvd hc-hd 2160phd 1080phd 720phd hd-cam cam-rip telesync"
+)
 INC_TASK_NOTIFY = False
+INC_TASK_RESUME = False
 YT_DLP_OPTIONS = ""
 USE_SERVICE_ACCOUNTS = False
 NAME_SWAP = ""
@@ -84,6 +89,10 @@ LEECH_LIMIT = 0
 EXTRACT_LIMIT = 0
 ARCHIVE_LIMIT = 0
 STORAGE_LIMIT = 0
+MONTHLY_BANDWIDTH = 0
+
+# Percentage of currently free storage available to staged torrent batches (1-100).
+STAGED_TORRENT_STORAGE_PERCENT = 50
 
 # CPU limit for background services (SABnzbd, JDownloader). Default: 20
 CPU_LIMIT = 20
@@ -131,6 +140,7 @@ ENABLE_TELEMETRY = True  # Send crash reports to remote worker
 
 # Bot Settings
 BOT_PM = False
+COLORED_BTNS = True
 SET_COMMANDS = True
 TIMEZONE = "Asia/Kolkata"
 
@@ -139,6 +149,7 @@ GDRIVE_ID = ""
 GD_DESP = "Uploaded with WZ Bot"
 IS_TEAM_DRIVE = False
 STOP_DUPLICATE = False
+STOP_DUPLICATE_MIN_SIZE = 0  # Minimum size in MB to enforce stop duplicate check (0 = check all sizes, e.g. 100 to skip < 100MB)
 INDEX_URL = ""
 
 # YT Tools
@@ -151,10 +162,15 @@ YT_PRIVACY_STATUS = "unlisted"
 RCLONE_PATH = ""
 RCLONE_FLAGS = ""
 RCLONE_SERVE_URL = ""
+RCLONE_USE_REMOTE_PREFIX = True
 SHOW_CLOUD_LINK = True
 RCLONE_SERVE_PORT = 0
 RCLONE_SERVE_USER = ""
 RCLONE_SERVE_PASS = ""
+
+# For rclone list module
+RCLONE_REMOTE = ""
+REMOTE_BASE_PATH = ""
 
 # JDownloader
 JD_EMAIL = ""

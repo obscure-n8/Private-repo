@@ -32,6 +32,7 @@ from ..helper.ext_utils.bot_utils import (
     new_task,
 )
 from ..helper.ext_utils.status_utils import (
+    get_bandwidth_string,
     get_progress_bar_string,
     get_readable_file_size,
     get_readable_time,
@@ -79,13 +80,42 @@ async def get_stats(event, key="home"):
     btns = ButtonMaker()
     if key == "home":
         btns = ButtonMaker()
-        btns.data_button("Bot Stats", f"stats {user_id} stbot")
-        btns.data_button("OS Stats", f"stats {user_id} stsys")
-        btns.data_button("Repo Stats", f"stats {user_id} strepo")
-        btns.data_button("Pkgs Stats", f"stats {user_id} stpkgs")
-        btns.data_button("Task Limits", f"stats {user_id} tlimits")
-        btns.data_button("Sys Tasks", f"stats {user_id} systasks")
+        # btns.data_button("Bot Stats", f"stats {user_id} stbot")
+        # btns.data_button("OS Stats", f"stats {user_id} stsys")
+        # btns.data_button("Repo Stats", f"stats {user_id} strepo")
+        # btns.data_button("Pkgs Stats", f"stats {user_id} stpkgs")
+        # btns.data_button("Task Limits", f"stats {user_id} tlimits")
+        # btns.data_button("Sys Tasks", f"stats {user_id} systasks")
         msg = "⌬ <b><i>Bot & OS Statistics!</i></b>"
+        total, used, free, disk = disk_usage("/")
+        commit_date, changelog = "No Data", "N/A"
+        if await aiopath.exists(".git"):
+            commit_date = (
+                await cmd_exec(
+                    "git log -1 --pretty='%cd ( %cr )' --date=format-local:'%d/%m/%Y'",
+                    True,
+                )
+            )[0]
+            changelog = (
+                await cmd_exec(
+                    "git log -1 --pretty=format:'<code>%s</code> <b>By</b> %an'", True
+                )
+            )[0]
+        msg = f"""⌬ <b><i>BOT STATISTICS :</i></b>
+┎ <b>Bot Uptime :</b> {get_readable_time(time() - bot_start_time)}
+┠ <b>Bandwidth :</b> {get_bandwidth_string()}
+┖ <b>Used :</b> {get_readable_file_size(used)} | <b>Free :</b> {get_readable_file_size(free)} | <b>Total :</b> {get_readable_file_size(total)}
+
+⌬ <b><i>SYSTEM OS :</i></b>
+┎ <b>OS Uptime :</b> {get_readable_time(time() - boot_time())}
+┠ <b>OS Version :</b> {version()}
+┖ <b>OS Arch :</b> {platform()}
+
+⌬ <b><i>REPO STATISTICS :</i></b>
+┎ <b>Current Version :</b> {get_version()}
+┠ <b>Commit Date :</b> {commit_date}
+┖ <b>Last ChangeLog :</b> {changelog}
+"""
     elif key == "stbot":
         total, used, free, disk = disk_usage("/")
         swap = swap_memory()
@@ -147,7 +177,8 @@ async def get_stats(event, key="home"):
 ┠ <b>Download Data:</b> {get_readable_file_size(net_io_counters().bytes_recv)}
 ┠ <b>Pkts Sent:</b> {str(net_io_counters().packets_sent)[:-3]}k
 ┠ <b>Pkts Received:</b> {str(net_io_counters().packets_recv)[:-3]}k
-┖ <b>Total I/O Data:</b> {get_readable_file_size(net_io_counters().bytes_recv + net_io_counters().bytes_sent)}
+┠ <b>Total I/O Data:</b> {get_readable_file_size(net_io_counters().bytes_recv + net_io_counters().bytes_sent)}
+┖ <b>Bandwidth:</b> {get_bandwidth_string()}
 
 ┎ <b><i>SYSTEM CPU :</i></b>
 ┃ {get_progress_bar_string(cpu_usage)} {cpu_usage}%
@@ -210,7 +241,8 @@ async def get_stats(event, key="home"):
 ┠ <b>Leech Limit :</b> {Config.LEECH_LIMIT or "∞"} GB
 ┠ <b>Archive Limit :</b> {Config.ARCHIVE_LIMIT or "∞"} GB
 ┠ <b>Extract Limit :</b> {Config.EXTRACT_LIMIT or "∞"} GB
-┞ <b>Threshold Storage :</b> {Config.STORAGE_LIMIT or "∞"} GB
+┠ <b>Threshold Storage :</b> {Config.STORAGE_LIMIT or "∞"} GB
+┞ <b>Monthly Bandwidth :</b> {f"{Config.MONTHLY_BANDWIDTH} GB" if Config.MONTHLY_BANDWIDTH else "∞"}
 │
 ┟ <b>Token Validity :</b> {get_readable_time(Config.VERIFY_TIMEOUT) if Config.VERIFY_TIMEOUT else "Disabled"}
 ┠ <b>User Time Limit :</b> {Config.USER_TIME_INTERVAL or "0"}s / task
@@ -257,7 +289,7 @@ async def get_stats(event, key="home"):
 
         btns.data_button("🔄 Refresh", f"stats {user_id} systasks", "header")
 
-    btns.data_button("Back", f"stats {user_id} home", "footer")
+    # btns.data_button("Back", f"stats {user_id} home", "footer")
     btns.data_button(
         "Close", f"stats {user_id} close", "footer", style=ButtonStyle.DANGER
     )

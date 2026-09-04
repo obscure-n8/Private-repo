@@ -37,6 +37,7 @@ from .. import (
     categories_dict,
     drives_ids,
     drives_names,
+    blacklisted_keywords,
     index_urls,
     intervals,
     jd_listener_lock,
@@ -84,6 +85,7 @@ DEFAULT_VALUES = {
     "LEECH_SPLIT_SIZE": TgClient.MAX_SPLIT_SIZE,
     "RSS_DELAY": 600,
     "STATUS_UPDATE_INTERVAL": 15,
+    "STAGED_TORRENT_STORAGE_PERCENT": 50,
     "SEARCH_LIMIT": 0,
     "UPSTREAM_BRANCH": "wzv3",
     "DEFAULT_UPLOAD": "rc",
@@ -98,6 +100,7 @@ BOOL_VARS = [
     "AS_DOCUMENT",
     "AUTO_THUMBNAIL",
     "BOT_PM",
+    "COLORED_BTNS",
     "DELETE_LINKS",
     "DRIVE_CATEGORY_MODE",
     "DISABLE_BULK",
@@ -122,6 +125,7 @@ BOOL_VARS = [
     "INC_TASK_NOTIFY",
     "INC_TASK_RESUME",
     "IS_TEAM_DRIVE",
+    "RCLONE_USE_REMOTE_PREFIX",
     "MEDIA_GROUP",
     "MEDIA_STORE",
     "MEM_DEEP_STATS",
@@ -148,8 +152,10 @@ DEFAULT_DESP = {
     "BOT_MAX_TASKS": "Max tasks (including queued) the bot runs in parallel. 0 = unlimited.",
     "BOT_PM": "Send files/links to bot owner PM. Default: False.",
     "CMD_SUFFIX": "Text appended to all bot commands. Useful for running multiple bot instances.",
+    "COLORED_BTNS": "Enable colored inline buttons across Telegram messages. Default: True.",
     "DEFAULT_LANG": "Default bot language code. Default: en.",
     "DATABASE_URL": "MongoDB connection string for persistent storage.",
+    "KUMA_URL": "Optional Uptime Kuma push monitor URL. When set, the bot pings it every 60 seconds.",
     "DEFAULT_UPLOAD": "Default upload destination: gd (Google Drive) or rc (rclone). Default: rc.",
     "DELETE_LINKS": "Auto-delete source links/messages on task start. Default: False.",
     "DEBRID_LINK_API": "Debrid-link.com API key for premium hoster support.",
@@ -173,6 +179,7 @@ DEFAULT_DESP = {
     "DISABLE_YTDLP": "Disable YouTube/YT-DLP downloads. Default: False.",
     "EQUAL_SPLITS": "Split files into equal parts of LEECH_SPLIT_SIZE. Default: False.",
     "EXCLUDED_EXTENSIONS": "File extensions to exclude from upload/clone. Space-separated.",
+    "BLACKLISTED_KEYWORDS": "Keywords to blacklist/block (e.g. hdcam camrip predvd). Space-separated.",
     "FFMPEG_CMDS": "Custom FFmpeg command presets. Dict format.",
     "FILELION_API": "FileLion.cc API key for direct download support.",
     "MEDIA_STORE": "Store media metadata for re-upload. Default: True.",
@@ -226,6 +233,7 @@ DEFAULT_DESP = {
     "EXTRACT_LIMIT": "Extracted file size limit in GB. 0 = unlimited.",
     "ARCHIVE_LIMIT": "Archive (zip) size limit in GB. 0 = unlimited.",
     "STORAGE_LIMIT": "Minimum free storage to maintain in GB. Downloads cancelled if exceeded.",
+    "MONTHLY_BANDWIDTH": "Monthly VPS bandwidth limit in GB (e.g. 3000 for 3TB). 0 = unlimited.",
     "LEECH_LOG_CHAT": "Chat ID to dump all leeched files, or chat_id|topic_id for a forum topic. Leave empty to disable.",
     "LEECH_DUMP_CHATS": 'Named leech dump chats selectable per task via -ud flag. Dict format: {"name": chat_id}. Example: {"A": -100123}.',
     "LINKS_LOG_ID": "Chat ID for link logging.",
@@ -260,6 +268,7 @@ DEFAULT_DESP = {
     "QUEUE_UPLOAD": "Max parallel uploading tasks. 0 = unlimited.",
     "RCLONE_FLAGS": "Rclone flags. Format: key:value|key|key:value.",
     "RCLONE_PATH": "Default rclone remote path for uploads.",
+    "RCLONE_USE_REMOTE_PREFIX": "Use rclone remote prefix in paths. Default: True.",
     "RCLONE_SERVE_URL": "Public URL for rclone serve. Format: http://ip.",
     "SHOW_CLOUD_LINK": "Show cloud link button on leeched files. Default: True.",
     "RCLONE_SERVE_USER": "Username for rclone serve authentication.",
@@ -274,7 +283,9 @@ DEFAULT_DESP = {
     "SET_COMMANDS": "Auto-set bot commands on start. Default: True.",
     "STATUS_LIMIT": "Number of status messages to show. Default: 10.",
     "STATUS_UPDATE_INTERVAL": "Status message refresh interval in seconds. Default: 15.",
-    "STOP_DUPLICATE": "Stop if file/folder exists in GDrive. Default: False.",
+    "STAGED_TORRENT_STORAGE_PERCENT": "Percentage of current free storage usable by staged torrents. Range: 1-100. Default: 50.",
+    "STOP_DUPLICATE": "Stop if file/folder already exists in GDrive/Rclone destination. Default: False.",
+    "STOP_DUPLICATE_MIN_SIZE": "Minimum size in MB to enforce stop duplicate check (e.g. 100 to skip files < 100MB). 0 = check all sizes. Default: 0.",
     "STREAMWISH_API": "StreamWish API key for uploads.",
     "SUDO_USERS": "User IDs with sudo access. Space-separated.",
     "TELEGRAM_API": "Telegram API ID from my.telegram.org.",
@@ -323,6 +334,7 @@ RESTART_VARS = {
     "TG_PROXY",
     "AUTHORIZED_CHATS",
     "DATABASE_URL",
+    "KUMA_URL",
 }
 
 ONOFF_VARS = [
@@ -390,9 +402,7 @@ def rich_text(*parts):
             texts.append(raw.types.TextPlain(text=part))
         else:
             style, value = part
-            texts.append(
-                RICH_STYLES[style](text=raw.types.TextPlain(text=value))
-            )
+            texts.append(RICH_STYLES[style](text=raw.types.TextPlain(text=value)))
     return raw.types.TextConcat(texts=texts)
 
 
@@ -401,6 +411,7 @@ async def get_buttons(key=None, edit_type=None, edit_mode=False):
     if key is None:
         buttons.data_button("Config Variables", "botset var")
         buttons.data_button("Module Settings", "botset setonoff")
+        buttons.data_button("Bandwidth Manager", "botset bwmgr")
         buttons.data_button("Private Files", "botset private open")
         buttons.data_button("Qbit Settings", "botset qbit")
         buttons.data_button("Aria2c Settings", "botset aria")
@@ -408,6 +419,7 @@ async def get_buttons(key=None, edit_type=None, edit_mode=False):
         buttons.data_button("JDownloader Sync", "botset syncjd")
         buttons.data_button("Close", "botset close", style=ButtonStyle.DANGER)
         msg = "Bot Settings:"
+
     elif edit_type is not None:
         if edit_type == "ariavar":
             buttons.data_button("Back", "botset aria", style=ButtonStyle.PRIMARY)
@@ -487,7 +499,7 @@ async def get_buttons(key=None, edit_type=None, edit_mode=False):
             for k, v in Config.get_all().items()
             if not k.startswith("DISABLE_") and k not in LIMIT_VARS
         }
-        all_keys = list(conf_dict.keys())
+        all_keys = sorted(conf_dict.keys())
         for k in all_keys[start : 10 + start]:
             buttons.data_button(k, f"botset editvar {k}")
         buttons.data_button("Back", "botset back")
@@ -497,6 +509,26 @@ async def get_buttons(key=None, edit_type=None, edit_mode=False):
                 f"{int(x / 10) + 1}", f"botset start var {x}", position="footer"
             )
         msg = f"⌬ <b><u>Config Variables</u></b> | <b><u>Page: {int(start / 10) + 1}</b></u>"
+    elif key == "bwmgr":
+        from ..helper.ext_utils.status_utils import get_bandwidth_string
+
+        bw_str = get_bandwidth_string()
+        if not edit_mode:
+            buttons.data_button(
+                "Set Bandwidth Base", "botset editbw", style=ButtonStyle.PRIMARY
+            )
+            buttons.data_button(
+                "Reset Bandwidth (0)", "botset resetbw", style=ButtonStyle.DANGER
+            )
+        else:
+            buttons.data_button("Stop Edit", "botset bwmgr")
+        buttons.data_button("Back", "botset back", position="footer")
+        buttons.data_button(
+            "Close", "botset close", position="footer", style=ButtonStyle.DANGER
+        )
+        msg = f"⌬ <b><u>Bandwidth Manager</u></b>\n\n<b>Current Bandwidth Usage:</b> <code>{bw_str}</code>\n\nClick <b>Set Bandwidth Base</b> to set starting usage (e.g. <code>150GB</code> or <code>1.5TB</code> from <code>vnstat</code>).\nClick <b>Reset Bandwidth</b> to reset tracked count to 0."
+        if edit_mode:
+            msg += "\n\n<i>Send a bandwidth size (e.g. 100GB, 1.2TB, 500MB).</i>\n┖ <b>Time Left :</b> <code>60 sec</code>"
     elif key == "setonoff":
         buttons.data_button("On/Off Settings", "botset settoggle")
         buttons.data_button("Limit Settings", "botset setlimit")
@@ -675,6 +707,7 @@ async def get_buttons(key=None, edit_type=None, edit_mode=False):
         else:
             buttons.data_button("View", "botset view aria")
         buttons.data_button("Add new key", "botset ariavar newkey")
+        buttons.data_button("Restart Aria2c", "botset restartaria")
         buttons.data_button("Back", "botset back")
         buttons.data_button("Close", "botset close", style=ButtonStyle.DANGER)
         for x in range(0, len(aria2_options), 10):
@@ -780,6 +813,8 @@ async def edit_variable(_, message, pre_message, key):
                 intervals["status"][cid] = SetInterval(
                     value, update_status_message, cid
                 )
+    elif key == "STAGED_TORRENT_STORAGE_PERCENT":
+        value = max(1, min(int(value), 100))
     elif key == "TORRENT_TIMEOUT":
         await TorrentManager.change_aria2_option("bt-stop-timeout", value)
         value = int(value)
@@ -792,6 +827,11 @@ async def edit_variable(_, message, pre_message, key):
         for x in fx:
             x = x.lstrip(".")
             excluded_extensions.append(x.strip().lower())
+    elif key == "BLACKLISTED_KEYWORDS":
+        kw_list = value.split()
+        blacklisted_keywords.clear()
+        for x in kw_list:
+            blacklisted_keywords.append(x.strip().lower())
     elif key == "GDRIVE_ID":
         if drives_names and drives_names[0] == "Main":
             drives_ids[0] = value
@@ -1359,7 +1399,29 @@ async def event_handler(client, query, pfunc, rfunc, document=False):
 
 
 @new_task
+async def set_bandwidth_value(_, message, pre_message):
+    handler_dict[message.chat.id] = False
+    text = message.text.strip()
+    from ..helper.ext_utils.status_utils import set_bandwidth, speed_string_to_bytes
+
+    bytes_val = speed_string_to_bytes(text)
+    if bytes_val > 0 or text == "0":
+        await set_bandwidth(bytes_val)
+        await send_message(
+            message, f"Bandwidth base set successfully to <code>{text}</code>!"
+        )
+    else:
+        await send_message(
+            message,
+            "Invalid size string! Example: <code>100GB</code>, <code>1.5TB</code>, <code>500MB</code>",
+        )
+    await delete_message(message)
+    await update_buttons(pre_message, "bwmgr")
+
+
+@new_task
 async def edit_bot_settings(client, query):
+
     data = query.data.split()
     message = query.message
     handler_dict[message.chat.id] = False
@@ -1394,13 +1456,25 @@ async def edit_bot_settings(client, query):
         "setonoff",
         "settoggle",
         "setlimit",
-    ] or data[
-        1
-    ].startswith("nzbser"):
+        "bwmgr",
+    ] or data[1].startswith("nzbser"):
         if data[1] in ("nzbserver", "setlimit"):
             globals()["start"] = 0
         await query.answer()
         await update_buttons(message, data[1])
+    elif data[1] == "resetbw":
+        await query.answer("Bandwidth usage reset to 0!", show_alert=True)
+        from ..helper.ext_utils.status_utils import set_bandwidth
+
+        await set_bandwidth(0)
+        await update_buttons(message, "bwmgr")
+    elif data[1] == "editbw":
+        await query.answer()
+        await update_buttons(message, "bwmgr", edit_mode=True)
+        pfunc = partial(set_bandwidth_value, pre_message=message)
+        rfunc = partial(update_buttons, message, "bwmgr")
+        await event_handler(client, query, pfunc, rfunc)
+
     elif data[1] == "resetvar":
         await query.answer()
         value = DEFAULT_CONFIG.get(data[2], "")
@@ -1496,6 +1570,13 @@ async def edit_bot_settings(client, query):
         qbit_options.clear()
         await update_qb_options()
         await database.save_qbit_settings()
+    elif data[1] == "restartaria":
+        await query.answer("Restarting Aria2c...", show_alert=True)
+        success = await TorrentManager.restart_aria2()
+        if success:
+            await query.answer("Aria2c Restarted Successfully!", show_alert=True)
+        else:
+            await query.answer("Failed to restart Aria2c!", show_alert=True)
     elif data[1] == "emptyaria":
         await query.answer()
         aria2_options[data[2]] = ""

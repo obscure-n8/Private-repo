@@ -128,7 +128,10 @@ async def build_menu(user_id, view="main", arg=""):
                 "Install", f"plugins {user_id} install", style=ButtonStyle.PRIMARY
             )
         buttons.data_button(
-            "Close", f"plugins {user_id} close", position="footer", style=ButtonStyle.DANGER
+            "Close",
+            f"plugins {user_id} close",
+            position="footer",
+            style=ButtonStyle.DANGER,
         )
         rows = [("Installed", str(total)), ("Enabled", str(on))]
         if len(records) - on:
@@ -156,7 +159,10 @@ async def build_menu(user_id, view="main", arg=""):
             )
         buttons.data_button("Back", f"plugins {user_id} main", position="footer")
         buttons.data_button(
-            "Close", f"plugins {user_id} close", position="footer", style=ButtonStyle.DANGER
+            "Close",
+            f"plugins {user_id} close",
+            position="footer",
+            style=ButtonStyle.DANGER,
         )
 
         if not records and not idle:
@@ -176,9 +182,7 @@ async def build_menu(user_id, view="main", arg=""):
             )
 
         rows = [(rec.name, _state_of(rec)) for rec in records]
-        rows += [
-            (name, manager.errors.get(name, "Not Loaded")[:48]) for name in idle
-        ]
+        rows += [(name, manager.errors.get(name, "Not Loaded")[:48]) for name in idle]
         return (
             _wz("Installed Plugins", rows, "Pick one to manage it."),
             buttons.build_menu(2, lb_cols=1),
@@ -212,7 +216,10 @@ async def build_menu(user_id, view="main", arg=""):
             )
         buttons.data_button("Back", f"plugins {user_id} list", position="footer")
         buttons.data_button(
-            "Close", f"plugins {user_id} close", position="footer", style=ButtonStyle.DANGER
+            "Close",
+            f"plugins {user_id} close",
+            position="footer",
+            style=ButtonStyle.DANGER,
         )
         man = rec.manifest
         version = f"<code>{man.version}</code>"
@@ -224,7 +231,10 @@ async def build_menu(user_id, view="main", arg=""):
         rows.append(("Source", rec.source))
         if rec.commands:
             rows.append(
-                ("Commands", ", ".join(f"/{c}" for c in rec.commands))
+                (
+                    "Commands",
+                    ", ".join(f"/{c}{Config.CMD_SUFFIX}" for c in rec.commands),
+                )
             )
         if man.callbacks:
             rows.append(("Callbacks", str(len(man.callbacks))))
@@ -250,7 +260,10 @@ async def build_menu(user_id, view="main", arg=""):
             buttons.data_button("Rescan", f"plugins {user_id} rescan")
         buttons.data_button("Back", f"plugins {user_id} list", position="footer")
         buttons.data_button(
-            "Close", f"plugins {user_id} close", position="footer", style=ButtonStyle.DANGER
+            "Close",
+            f"plugins {user_id} close",
+            position="footer",
+            style=ButtonStyle.DANGER,
         )
         if man is None:
             rows = [
@@ -263,7 +276,10 @@ async def build_menu(user_id, view="main", arg=""):
             rows.append(("Author", man.author))
         if man.command_names():
             rows.append(
-                ("Commands", ", ".join(f"/{c}" for c in man.command_names()))
+                (
+                    "Commands",
+                    ", ".join(f"/{c}{Config.CMD_SUFFIX}" for c in man.command_names()),
+                )
             )
         if man.python_dependencies:
             rows.append(("Requires", ", ".join(man.python_dependencies)))
@@ -306,7 +322,10 @@ async def build_menu(user_id, view="main", arg=""):
         buttons.data_button("Refresh", f"plugins {user_id} refresh", position="l_body")
         buttons.data_button("Back", f"plugins {user_id} main", position="footer")
         buttons.data_button(
-            "Close", f"plugins {user_id} close", position="footer", style=ButtonStyle.DANGER
+            "Close",
+            f"plugins {user_id} close",
+            position="footer",
+            style=ButtonStyle.DANGER,
         )
 
         installed = len([e for e in entries if manager.get(e["id"])])
@@ -342,7 +361,10 @@ async def build_menu(user_id, view="main", arg=""):
             )
         buttons.data_button("Back", f"plugins {user_id} mkt 0", position="footer")
         buttons.data_button(
-            "Close", f"plugins {user_id} close", position="footer", style=ButtonStyle.DANGER
+            "Close",
+            f"plugins {user_id} close",
+            position="footer",
+            style=ButtonStyle.DANGER,
         )
         rows = [("Version", f"<code>{item.get('version', '?')}</code>")]
         if item.get("author"):
@@ -359,7 +381,10 @@ async def build_menu(user_id, view="main", arg=""):
         buttons.data_button("From GitHub", f"plugins {user_id} github")
         buttons.data_button("Back", f"plugins {user_id} main", position="footer")
         buttons.data_button(
-            "Close", f"plugins {user_id} close", position="footer", style=ButtonStyle.DANGER
+            "Close",
+            f"plugins {user_id} close",
+            position="footer",
+            style=ButtonStyle.DANGER,
         )
         rows = [
             ("Needs", "a folder with <code>wzml_plugin.yml</code>"),
@@ -399,7 +424,10 @@ async def build_menu(user_id, view="main", arg=""):
                 rows.append((man.name, f"<code>{man.version}</code>"))
         buttons.data_button("Back", f"plugins {user_id} install", position="footer")
         buttons.data_button(
-            "Close", f"plugins {user_id} close", position="footer", style=ButtonStyle.DANGER
+            "Close",
+            f"plugins {user_id} close",
+            position="footer",
+            style=ButtonStyle.DANGER,
         )
         head = [("Source", f"<code>{state.get('label') or state.get('url')}</code>")]
         return (
@@ -463,17 +491,25 @@ async def build_menu(user_id, view="main", arg=""):
             )
         buttons.data_button("Back", f"plugins {user_id} view {arg}", position="footer")
         buttons.data_button(
-            "Close", f"plugins {user_id} close", position="footer", style=ButtonStyle.DANGER
+            "Close",
+            f"plugins {user_id} close",
+            position="footer",
+            style=ButtonStyle.DANGER,
         )
         note = "" if items else "This plugin has no settings."
-        return _wz(f"{_var(arg)} Settings", rows, note), buttons.build_menu(2, lb_cols=1)
+        return _wz(f"{_var(arg)} Settings", rows, note), buttons.build_menu(
+            2, lb_cols=1
+        )
 
     if view == "rmask":
         buttons.data_button(
             "Yes, Remove", f"plugins {user_id} rm {arg}", style=ButtonStyle.DANGER
         )
         buttons.data_button("No", f"plugins {user_id} list")
-        rows = [("Plugin", f"<code>{arg}</code>"), ("Removes", "its folder and settings")]
+        rows = [
+            ("Plugin", f"<code>{arg}</code>"),
+            ("Removes", "its folder and settings"),
+        ]
         return (
             _wz("Confirm Uninstall", rows, "This cannot be undone."),
             buttons.build_menu(2),
@@ -792,10 +828,16 @@ async def edit_plugins_menu(client, query):
             fetch = partial(installer.stage_entry, item)
         else:
             rec = manager.get(arg)
-            if rec is not None and rec.url and rec.source in ("github", "market", "url"):
+            if (
+                rec is not None
+                and rec.url
+                and rec.source in ("github", "market", "url")
+            ):
                 source, url = rec.source, rec.url
                 fetch = partial(
-                    installer.stage_github if source == "github" else installer.stage_url,
+                    installer.stage_github
+                    if source == "github"
+                    else installer.stage_url,
                     url,
                     pick=arg,
                 )
@@ -884,7 +926,10 @@ async def edit_plugins_menu(client, query):
         rows = [
             ("Variable", f"<code>{_var(key)}</code>"),
             ("Type", kind),
-            ("Current", f"<code>{'not set' if current in (None, '') else current}</code>"),
+            (
+                "Current",
+                f"<code>{'not set' if current in (None, '') else current}</code>",
+            ),
         ]
         if bounds:
             rows.append(("Limits", ", ".join(bounds)))
@@ -902,9 +947,7 @@ async def edit_plugins_menu(client, query):
     if action == "upload":
         await query.answer()
         rows = [("Send", "a .zip of the plugin folder"), ("Needs", "wzml_plugin.yml")]
-        return await _ask(
-            client, query, _wz("Upload a Plugin", rows), _on_upload
-        )
+        return await _ask(client, query, _wz("Upload a Plugin", rows), _on_upload)
 
     if action == "github":
         await query.answer()
@@ -912,9 +955,7 @@ async def edit_plugins_menu(client, query):
             ("Send", "<code>owner/repo</code>"),
             ("Or", "<code>owner/repo@branch</code>"),
         ]
-        return await _ask(
-            client, query, _wz("Install from GitHub", rows), _on_github
-        )
+        return await _ask(client, query, _wz("Install from GitHub", rows), _on_github)
 
     await query.answer()
 

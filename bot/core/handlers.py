@@ -9,6 +9,7 @@ from ..helper.ext_utils.help_messages import BOT_COMMANDS
 from ..helper.telegram_helper.bot_commands import BotCommands
 from ..helper.telegram_helper.filters import CustomFilters
 from ..modules import *
+from ..modules.staged_torrent import qb_stream_leech, qb_stream_mirror
 from .tg_client import TgClient
 
 
@@ -181,6 +182,53 @@ async def add_handlers():
     TgClient.bot.add_handler(
         CallbackQueryHandler(select_type, filters=regex("^list_types"))
     )
+    TgClient.bot.add_handler(
+        CallbackQueryHandler(select_dest, filters=regex("^list_dest"))
+    )
+    TgClient.bot.add_handler(
+        MessageHandler(
+            rcrefreshindex_command,
+            filters=command(BotCommands.RcRefreshIndexCommand, case_sensitive=True)
+            & CustomFilters.sudo,
+        )
+    )
+    TgClient.bot.add_handler(
+        MessageHandler(
+            recent_searches,
+            filters=command(BotCommands.RecentCommand, case_sensitive=True)
+            & CustomFilters.authorized,
+        )
+    )
+    TgClient.bot.add_handler(
+        MessageHandler(
+            rclstorage_command,
+            filters=command(BotCommands.RclStorageCommand, case_sensitive=True)
+            & CustomFilters.authorized,
+        )
+    )
+    TgClient.bot.add_handler(
+        MessageHandler(
+            rcldelete_command,
+            filters=command(BotCommands.RclDeleteCommand, case_sensitive=True)
+            & CustomFilters.authorized,
+        )
+    )
+    TgClient.bot.add_handler(
+        MessageHandler(
+            latest_uploads,
+            filters=command(BotCommands.LatestCommand, case_sensitive=True)
+            & CustomFilters.authorized,
+        )
+    )
+    TgClient.bot.add_handler(
+        CallbackQueryHandler(handle_pagination, filters=regex("^page"))
+    )
+    TgClient.bot.add_handler(
+        CallbackQueryHandler(confirm_delete_callback, filters=regex("^confirm_delete"))
+    )
+    TgClient.bot.add_handler(
+        CallbackQueryHandler(cancel_delete_callback, filters=regex("^cancel"))
+    )
     TgClient.bot.add_handler(CallbackQueryHandler(arg_usage, filters=regex("^help")))
     TgClient.bot.add_handler(
         MessageHandler(
@@ -193,6 +241,13 @@ async def add_handlers():
         MessageHandler(
             qb_mirror,
             filters=command(BotCommands.QbMirrorCommand, case_sensitive=True)
+            & CustomFilters.authorized,
+        )
+    )
+    TgClient.bot.add_handler(
+        MessageHandler(
+            qb_stream_mirror,
+            filters=command(BotCommands.QbStreamMirrorCommand, case_sensitive=True)
             & CustomFilters.authorized,
         )
     )
@@ -226,6 +281,13 @@ async def add_handlers():
     )
     TgClient.bot.add_handler(
         MessageHandler(
+            qb_stream_leech,
+            filters=command(BotCommands.QbStreamLeechCommand, case_sensitive=True)
+            & CustomFilters.authorized,
+        )
+    )
+    TgClient.bot.add_handler(
+        MessageHandler(
             jd_leech,
             filters=command(BotCommands.JdLeechCommand, case_sensitive=True)
             & CustomFilters.authorized,
@@ -244,6 +306,19 @@ async def add_handlers():
             filters=command(BotCommands.SeedrLinkCommand, case_sensitive=True)
             & CustomFilters.authorized,
         )
+    )
+    TgClient.bot.add_handler(
+        MessageHandler(
+            seedr_clean,
+            filters=command(BotCommands.SeedrCleanCommand, case_sensitive=True)
+            & CustomFilters.authorized,
+        )
+    )
+    TgClient.bot.add_handler(
+        CallbackQueryHandler(seedr_clean_cb, filters=regex("^seedrclean"))
+    )
+    TgClient.bot.add_handler(
+        CallbackQueryHandler(seedr_link_cb, filters=regex("^seedrlink"))
     )
     TgClient.bot.add_handler(
         MessageHandler(
@@ -308,6 +383,19 @@ async def add_handlers():
             restart_sessions,
             filters=command(BotCommands.RestartSessionsCommand, case_sensitive=True)
             & CustomFilters.sudo,
+        )
+    )
+    TgClient.bot.add_handler(
+        MessageHandler(
+            restart_aria2,
+            filters=command(BotCommands.RestartAria2Command, case_sensitive=True)
+            & CustomFilters.sudo,
+        )
+    )
+    TgClient.bot.add_handler(
+        CallbackQueryHandler(
+            confirm_restart_aria2,
+            filters=regex("^aria2restart") & CustomFilters.sudo,
         )
     )
     TgClient.bot.add_handler(
@@ -474,10 +562,32 @@ async def add_handlers():
                 "[magnet] Get direct Seedr HTTP download links",
                 9,
             )
+            BOT_COMMANDS = insert_at(
+                BOT_COMMANDS,
+                "SeedrClean",
+                "Clean or delete active Seedr cloud downloads",
+                10,
+            )
+
+        if not Config.DISABLE_STREAM:
+            BOT_COMMANDS = insert_at(
+                BOT_COMMANDS,
+                "Stream",
+                "[link/file] Stream or get playlist download links",
+                10,
+            )
 
         if Config.LOGIN_PASS:
             BOT_COMMANDS = insert_at(
                 BOT_COMMANDS, "Login", "[password] Login to Bot", 14
+            )
+
+        if not Config.DISABLE_PLUGINS:
+            BOT_COMMANDS = insert_at(
+                BOT_COMMANDS,
+                "Plugins",
+                "[SUDO] Manage user plugins",
+                len(BOT_COMMANDS),
             )
 
         await TgClient.bot.set_bot_commands(

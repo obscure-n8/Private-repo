@@ -8,7 +8,11 @@ from .... import task_dict_lock, task_dict, LOGGER
 from ....core.config_manager import Config
 from ....core.torrent_manager import TorrentManager, is_metadata, aria2_name
 from ...ext_utils.bot_utils import bt_selection_buttons
-from ...ext_utils.task_manager import check_running_tasks
+from ...ext_utils.task_manager import (
+    check_running_tasks,
+    stop_duplicate_check,
+    check_blacklisted_keywords,
+)
 from ...mirror_leech_utils.status_utils.aria2_status import Aria2Status
 from ...telegram_helper.message_utils import send_status_message, send_message
 
@@ -19,6 +23,19 @@ async def add_aria2_download(listener, dpath, header, ratio, seed_time):
     ):
         await listener.on_download_error("Torrent and magnet downloads are disabled.")
         return
+    is_bl, bl_kw = await check_blacklisted_keywords(
+        listener, listener.name or listener.link
+    )
+    if is_bl:
+        await listener.on_download_error(
+            f"Task cancelled! Name/Link contains blacklisted keyword: <code>{bl_kw}</code>"
+        )
+        return
+    if listener.name:
+        msg, button = await stop_duplicate_check(listener)
+        if msg:
+            await listener.on_download_error(msg, button)
+            return
     a2c_opt = {"dir": dpath}
     if listener.name:
         a2c_opt["out"] = listener.name
@@ -65,6 +82,13 @@ async def add_aria2_download(listener, dpath, header, ratio, seed_time):
         await remove(listener.link)
 
     name = aria2_name(download)
+    if not is_metadata(download):
+        listener.name = listener.name or name
+        msg, button = await stop_duplicate_check(listener)
+        if msg:
+            await TorrentManager.aria2_remove(download)
+            await listener.on_download_error(msg, button)
+            return
     async with task_dict_lock:
         task_dict[listener.mid] = Aria2Status(listener, gid, queued=add_to_queue)
     if add_to_queue:

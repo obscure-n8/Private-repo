@@ -21,6 +21,7 @@ from .. import (
     var_list,
     user_data,
     excluded_extensions,
+    blacklisted_keywords,
     nzb_options,
     qbit_options,
     rss_dict,
@@ -96,12 +97,17 @@ async def update_nzb_options():
 
 
 async def load_settings():
+    from ..helper.ext_utils.status_utils import init_bandwidth
+
     if not Config.DATABASE_URL:
+        await init_bandwidth()
         return
     for p in ["thumbnails", "tokens", "rclone"]:
         if await aiopath.exists(p):
             await rmtree(p, ignore_errors=True)
     await database.connect()
+    await init_bandwidth()
+
     if database.db is not None:
         if TgClient.PARTITION:
             PART = str(TgClient.PARTITION)
@@ -303,6 +309,11 @@ async def update_variables():
             x = x.lstrip(".")
             excluded_extensions.append(x.strip().lower())
 
+    if Config.BLACKLISTED_KEYWORDS:
+        kw_list = Config.BLACKLISTED_KEYWORDS.split()
+        for x in kw_list:
+            blacklisted_keywords.append(x.strip().lower())
+
     if Config.GDRIVE_ID:
         drives_names.append("Main")
         drives_ids.append(Config.GDRIVE_ID)
@@ -404,10 +415,12 @@ async def load_configurations():
             access_pwd = token_bytes(32).hex()
             Config.WEB_ACCESS_PASSWORD = access_pwd
         env = f"WEB_ACCESS_PASSWORD={access_pwd} "
-        bot_loop.create_task(cmd_exec(
-            f"{env}gunicorn -k uvicorn.workers.UvicornWorker -w 1 web.wserver:app --bind 0.0.0.0:{PORT}",
-            shell=True,
-        ))
+        bot_loop.create_task(
+            cmd_exec(
+                f"{env}gunicorn -k uvicorn.workers.UvicornWorker -w 1 web.wserver:app --bind 0.0.0.0:{PORT}",
+                shell=True,
+            )
+        )
         bot_loop.create_task(cmd_exec("python3 cron_boot.py", shell=True))
 
     if Config.DISABLE_STREAM:

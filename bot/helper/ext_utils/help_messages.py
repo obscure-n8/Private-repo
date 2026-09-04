@@ -418,16 +418,23 @@ def get_bot_commands():
     static_commands = {
         "Mirror": "[link/file] Mirror to Upload Destination",
         "QbMirror": "[magnet/torrent] Mirror to Upload Destination using qbit",
+        "QbStreamMirror": "[magnet/torrent] Storage-safe staged qbit mirror",
         "Ytdl": "[link] Mirror YouTube, m3u8, Social Media and yt-dlp supported urls",
         "UpHoster": "[link/file] Upload to DDL Servers",
         "Leech": "[link/file] Leech files to Upload to Telegram",
         "QbLeech": "[magnet/torrent] Leech files to Upload to Telegram using qbit",
+        "QbStreamLeech": "[magnet/torrent] Storage-safe staged qbit leech",
         "YtdlLeech": "[link] Leech YouTube, m3u8, Social Media and yt-dlp supported urls",
         "Clone": "[link] Clone files/folders to GDrive",
         "UserSet": "User personal settings",
         "ForceStart": "[gid/reply] Force start from queued task",
         "Count": "[link] Count no. of files/folders in GDrive",
-        "List": "[query] Search any Text which is available in GDrive",
+        "List": "[query] Search any Text which is available in GDrive or Rclone Remotes",
+        "RcRefreshIndex": "[SUDO] Refresh Rclone Remote Index",
+        "Recent": "Get recent files/folders from Rclone Remotes",
+        "Latest": "Get latest files/folders from Rclone Remotes",
+        "RclStorage": "Get rclone storage info",
+        "RclDelete": "[query] Delete files/folders from rclone",
         "Search": "[query] Search torrents via Qbit Plugins",
         "Select": "[gid/reply] Select files for NZB, Aria2, Qbit Tasks",
         "Ping": "Ping Bot to test Response Speed",
@@ -441,6 +448,7 @@ def get_bot_commands():
         "Memory": "[SUDO] Memory usage, caches and an allocation profiler",
         "Restart": "[SUDO] Reboot bot",
         "RestartSessions": "[SUDO] Reboot User Sessions",
+        "RestartAria2": "[SUDO] Restart Aria2c Service",
     }
 
     commands = static_commands.copy()
@@ -483,6 +491,11 @@ def get_help_string():
             help_lines.append(f"{cmd_str}: Start mirroring to cloud.")
         elif key == "QbMirror":
             help_lines.append(f"{cmd_str}: Start Mirroring to cloud using qBittorrent.")
+        elif key == "QbStreamMirror":
+            help_lines.append(
+                f"{cmd_str}: Download fitting torrent files in batches, upload, then delete them. "
+                "Each selected file must fit local free storage; seeding and processing flags are unsupported."
+            )
         elif key == "JdMirror":
             help_lines.append(f"{cmd_str}: Start Mirroring to cloud using JDownloader.")
         elif key == "NzbMirror":
@@ -495,6 +508,11 @@ def get_help_string():
             help_lines.append(f"{cmd_str}: Start leeching to Telegram.")
         elif key == "QbLeech":
             help_lines.append(f"{cmd_str}: Start leeching using qBittorrent.")
+        elif key == "QbStreamLeech":
+            help_lines.append(
+                f"{cmd_str}: Storage-safe staged qBittorrent leech to Telegram. "
+                "Each selected file must fit local free storage."
+            )
         elif key == "JdLeech":
             help_lines.append(f"{cmd_str}: Start leeching using JDownloader.")
         elif key == "NzbLeech":
@@ -530,7 +548,19 @@ def get_help_string():
         elif key == "CancelAll":
             help_lines.append(f"{cmd_str} [query]: Cancel all [status] tasks.")
         elif key == "List":
-            help_lines.append(f"{cmd_str} [query]: Search in Google Drive(s).")
+            help_lines.append(
+                f"{cmd_str} [query]: Search in Google Drive(s) or Rclone Remotes."
+            )
+        elif key == "RcRefreshIndex":
+            help_lines.append(f"{cmd_str}: Refresh Rclone Remote Index (Only Sudo).")
+        elif key == "Recent":
+            help_lines.append(f"{cmd_str}: Get recent searches.")
+        elif key == "Latest":
+            help_lines.append(f"{cmd_str}: Get a list of latest files from Rclone.")
+        elif key == "RclStorage":
+            help_lines.append(f"{cmd_str}: Get Rclone Storage.")
+        elif key == "RclDelete":
+            help_lines.append(f"{cmd_str} [query]: Delete files/folders from rclone.")
         elif key == "Search":
             help_lines.append(f"{cmd_str} [query]: Search for torrents with API.")
         elif key == "Status":

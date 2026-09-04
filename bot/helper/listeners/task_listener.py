@@ -41,7 +41,11 @@ from ..ext_utils.files_utils import (
 )
 from ..ext_utils.links_utils import is_gdrive_id
 from ..ext_utils.status_utils import get_readable_file_size, get_readable_time
-from ..ext_utils.task_manager import check_running_tasks, start_from_queued
+from ..ext_utils.task_manager import (
+    check_running_tasks,
+    check_blacklisted_keywords,
+    start_from_queued,
+)
 from ..mirror_leech_utils.uphoster_utils.multi_upload import MultiUphosterUpload
 from ..mirror_leech_utils.gdrive_utils.upload import GoogleDriveUpload
 from ..mirror_leech_utils.rclone_utils.transfer import RcloneTransferHelper
@@ -69,6 +73,8 @@ from ..telegram_helper.message_utils import (
 class TaskListener(TaskConfig):
     def __init__(self):
         super().__init__()
+        self.avg_download_speed = 0
+        self.avg_upload_speed = 0
 
     async def clean(self):
         with suppress(Exception):
@@ -96,6 +102,7 @@ class TaskListener(TaskConfig):
                 self.same_dir[self.folder_name]["total"] -= 1
 
     async def on_download_start(self):
+        self.download_start_time = time()
         mode_name = "Leech" if self.is_leech else "Mirror"
         if self.bot_pm and self.is_super_chat:
             self.pm_msg = await send_message(
@@ -214,7 +221,20 @@ class TaskListener(TaskConfig):
 
         dl_path = f"{self.dir}/{self.name}"
         self.size = await get_path_size(dl_path)
+        self.download_size = self.size
         self.is_file = await aiopath.isfile(dl_path)
+
+        is_bl, bl_kw = await check_blacklisted_keywords(self, self.name)
+        if is_bl:
+            await self.on_download_error(
+                f"Task cancelled! Name contains blacklisted keyword: <code>{bl_kw}</code>"
+            )
+            return
+
+        download_time = time() - getattr(self, "download_start_time", time())
+        self.avg_download_speed = (
+            self.download_size / download_time if download_time > 0 else 0
+        )
 
         if self.seed:
             up_dir = self.up_dir = f"{self.dir}10000"
@@ -353,6 +373,8 @@ class TaskListener(TaskConfig):
                 return
             LOGGER.info(f"Start from Queued/Upload: {self.name}")
 
+        self.upload_start_time = time()
+
         self.size = await get_path_size(up_dir)
 
         if self.is_yt:
@@ -425,6 +447,8 @@ class TaskListener(TaskConfig):
     async def on_upload_complete(
         self, link, files, folders, mime_type, rclone_path="", dir_id=""
     ):
+        upload_time = time() - getattr(self, "upload_start_time", time())
+        self.avg_upload_speed = self.size / upload_time if upload_time > 0 else 0
         if (
             self.is_super_chat
             and (Config.INC_TASK_NOTIFY or Config.INC_TASK_RESUME)
@@ -435,9 +459,14 @@ class TaskListener(TaskConfig):
             f"<b><i>{escape(self.name)}</i></b>\n│"
             f"\n┟ <b>Task Size</b> → {get_readable_file_size(self.size)}"
             f"\n┠ <b>Time Taken</b> → {get_readable_time(time() - self.message.date.timestamp())}"
-            f"\n┠ <b>In Mode</b> → {self.mode[0]}"
-            f"\n┠ <b>Out Mode</b> → {self.mode[1]}"
+            f"\n┠ <b>In / Out Mode</b> → {self.mode[0]} | {self.mode[1]}"
         )
+
+        if not getattr(self, "is_clone", False):
+            msg += (
+                f"\n┠ <b>Avg DL Speed</b> → {get_readable_file_size(self.avg_download_speed)}/s"
+                f"\n┠ <b>Avg UL Speed</b> → {get_readable_file_size(self.avg_upload_speed)}/s"
+            )
         LOGGER.info(f"Task Done: {self.name}")
         if self.is_yt:
             buttons = ButtonMaker()
@@ -474,8 +503,8 @@ class TaskListener(TaskConfig):
 
             if self.bot_pm:
                 pmsg = msg
-                pmsg += "〶 <b><u>Action Performed :</u></b>\n"
-                pmsg += "⋗ <i>File(s) have been sent to User PM</i>\n\n"
+                # pmsg += "〶 <b><u>Action Performed :</u></b>\n"
+                # pmsg += "⋗ <i>File(s) have been sent to User PM</i>\n\n"
                 if self.is_super_chat:
                     await send_message(self.message, pmsg)
 
@@ -552,7 +581,10 @@ class TaskListener(TaskConfig):
                 if rclone_path and Config.RCLONE_SERVE_URL and not self.private_link:
                     remote, rpath = rclone_path.split(":", 1)
                     url_path = rutils.quote(f"{rpath}")
-                    share_url = f"{Config.RCLONE_SERVE_URL}/{remote}/{url_path}"
+                    if Config.RCLONE_USE_REMOTE_PREFIX:
+                        share_url = f"{Config.RCLONE_SERVE_URL}/{remote}/{url_path}"
+                    else:
+                        share_url = f"{Config.RCLONE_SERVE_URL}/{url_path}"
                     if mime_type == "Folder":
                         share_url += "/"
                     buttons.url_button(
@@ -582,8 +614,9 @@ class TaskListener(TaskConfig):
                 button = None
             msg += f"\n┃\n┖ <b>Task By</b> → {self.tag}\n\n"
             group_msg = (
-                msg + "〶 <b><u>Action Performed :</u></b>\n"
-                "⋗ <i>Cloud link(s) have been sent to User PM</i>\n\n"
+                msg
+                # msg + "〶 <b><u>Action Performed :</u></b>\n"
+                # "⋗ <i>Cloud link(s) have been sent to User PM</i>\n\n"
             )
 
             if multi_link_msg:
@@ -639,21 +672,29 @@ class TaskListener(TaskConfig):
 
             await delete_magnet(magnet_id)
             self._alldebrid_magnet_id = 0
+        error_msg = (
+            error
+            if isinstance(error, str)
+            and (
+                error.startswith("File/Folder is already available")
+                or "<code>" in error
+                or "<b>" in error
+            )
+            else escape(str(error))
+        )
         msg = (
             f"""〶 <b><i><u>Limit Breached:</u></i></b>
-│
-┟ <b>Task Size</b> → {get_readable_file_size(self.size)}
-┠ <b>In Mode</b> → {self.mode[0]}
-┠ <b>Out Mode</b> → {self.mode[1]}
+
+┎ <b>Task Size</b> → {get_readable_file_size(self.size)}
+┠ <b>In / Out Mode</b> → {self.mode[0]} | {self.mode[1]}
 {error}"""
             if is_limit
             else f"""<i><b>〶 Download Stopped!</b></i>
-│
-┟ <b>Due To</b> → {escape(str(error))}
+
+┎ <b>Due To</b> → {error_msg}
 ┠ <b>Task Size</b> → {get_readable_file_size(self.size)}
 ┠ <b>Time Taken</b> → {get_readable_time(time() - self.message.date.timestamp())}
-┠ <b>In Mode</b> → {self.mode[0]}
-┠ <b>Out Mode</b> → {self.mode[1]}
+┠ <b>In / Out Mode</b> → {self.mode[0]} | {self.mode[1]}
 ┖ <b>Task By</b> → {self.tag}"""
         )
 

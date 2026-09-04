@@ -17,7 +17,18 @@ from .force_start import remove_from_queue
 from .gd_count import count_node
 from .gd_delete import delete_file
 from .gd_clean import drive_clean, confirm_drive_clean_cb
-from .gd_search import gdrive_search, select_type
+from .gd_search import gdrive_search, select_type, select_dest
+from .rc_search import (
+    recent_searches,
+    latest_uploads,
+    rclstorage_command,
+    rcldelete_command,
+    rcrefreshindex_command,
+    handle_pagination,
+    confirm_delete_callback,
+    cancel_delete_callback,
+    run_rclone_search,
+)
 from .help import arg_usage, bot_help
 from .images import picture_add, pictures, pics_callback
 from .stream import stream_links
@@ -33,6 +44,9 @@ from .mirror_leech import (
     nzb_leech,
     nzb_mirror,
     seedr_link,
+    seedr_link_cb,
+    seedr_clean,
+    seedr_clean_cb,
     uphoster,
 )
 from .restart import (
@@ -40,6 +54,8 @@ from .restart import (
     restart_notification,
     confirm_restart,
     restart_sessions,
+    restart_aria2,
+    confirm_restart_aria2,
 )
 from .rss import get_rss_menu, rss_listener
 from .search import torrent_search, torrent_search_update, initiate_search_tools
@@ -79,6 +95,16 @@ __all__ = [
     "confirm_drive_clean_cb",
     "gdrive_search",
     "select_type",
+    "select_dest",
+    "rcrefreshindex_command",
+    "recent_searches",
+    "latest_uploads",
+    "rclstorage_command",
+    "rcldelete_command",
+    "handle_pagination",
+    "confirm_delete_callback",
+    "cancel_delete_callback",
+    "run_rclone_search",
     "arg_usage",
     "uphoster",
     "mirror",
@@ -90,10 +116,15 @@ __all__ = [
     "nzb_leech",
     "nzb_mirror",
     "seedr_link",
+    "seedr_link_cb",
+    "seedr_clean",
+    "seedr_clean_cb",
     "restart_bot",
     "restart_notification",
     "confirm_restart",
     "restart_sessions",
+    "restart_aria2",
+    "confirm_restart_aria2",
     "get_rss_menu",
     "rss_listener",
     "torrent_search",

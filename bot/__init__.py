@@ -33,6 +33,7 @@ getLogger("pyrogram").setLevel(ERROR)
 getLogger("apscheduler").setLevel(ERROR)
 getLogger("pymongo").setLevel(WARNING)
 getLogger("aiohttp").setLevel(WARNING)
+getLogger("httpx").setLevel(WARNING)
 
 
 bot_start_time = time()
@@ -76,6 +77,7 @@ var_list = [
 ]
 auth_chats = {}
 excluded_extensions = ["aria2", "!qB"]
+blacklisted_keywords = []
 drives_names = []
 drives_ids = []
 index_urls = []

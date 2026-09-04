@@ -19,6 +19,7 @@ class Config:
     BOT_MAX_TASKS = 0
     BOT_PM = False
     CMD_SUFFIX = ""
+    COLORED_BTNS = True
     DEFAULT_LANG = "en"
     DATABASE_URL = ""
     DEFAULT_UPLOAD = "rc"
@@ -43,6 +44,7 @@ class Config:
     PLUGIN_INDEXES = []
     EQUAL_SPLITS = False
     EXCLUDED_EXTENSIONS = ""
+    BLACKLISTED_KEYWORDS = ""
     FFMPEG_CMDS = {}
     FILELION_API = ""
     MEDIA_STORE = True
@@ -74,6 +76,7 @@ class Config:
     IS_TEAM_DRIVE = False
     JD_EMAIL = ""
     JD_PASS = ""
+    KUMA_URL = ""
     MEGA_EMAIL = ""
     MEGA_PASSWORD = ""
     SEEDR_EMAIL = ""
@@ -94,6 +97,8 @@ class Config:
     EXTRACT_LIMIT = 0
     ARCHIVE_LIMIT = 0
     STORAGE_LIMIT = 0
+    MONTHLY_BANDWIDTH = 0
+    STAGED_TORRENT_STORAGE_PERCENT = 50
     LEECH_LOG_CHAT = ""
     LEECH_DUMP_CHATS = {}
     LINKS_LOG_ID = ""
@@ -127,10 +132,13 @@ class Config:
     RCLONE_FLAGS = ""
     RCLONE_PATH = ""
     RCLONE_SERVE_URL = ""
+    RCLONE_USE_REMOTE_PREFIX = True
     SHOW_CLOUD_LINK = True
     RCLONE_SERVE_USER = ""
     RCLONE_SERVE_PASS = ""
     RCLONE_SERVE_PORT = 8081
+    RCLONE_REMOTE = ""
+    REMOTE_BASE_PATH = ""
     RSS_CHAT = ""
     RSS_DELAY = 600
     RSS_SIZE_LIMIT = 0
@@ -141,6 +149,7 @@ class Config:
     STATUS_LIMIT = 10
     STATUS_UPDATE_INTERVAL = 15
     STOP_DUPLICATE = False
+    STOP_DUPLICATE_MIN_SIZE = 0
     STREAMWISH_API = ""
     SUDO_USERS = ""
     TELEGRAM_API = 0
@@ -207,7 +216,7 @@ class Config:
         for attr in dir(settings):
             if hasattr(cls, attr):
                 value = getattr(settings, attr)
-                if not value:
+                if not value and not isinstance(value, (bool, int, float)):
                     continue
                 if isinstance(value, str):
                     value = value.strip()
@@ -218,6 +227,7 @@ class Config:
                     "RCLONE_SERVE_URL",
                     "INDEX_URL",
                     "SEARCH_API_LINK",
+                    "KUMA_URL",
                 ]:
                     if value:
                         value = value.strip("/")
@@ -316,6 +326,7 @@ class Config:
                     "RCLONE_SERVE_URL",
                     "INDEX_URL",
                     "SEARCH_API_LINK",
+                    "KUMA_URL",
                 ]:
                     if value:
                         value = value.strip("/")
