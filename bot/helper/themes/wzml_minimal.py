@@ -2,15 +2,11 @@
 class WZMLStyle:
     # ----------------------
     # async def start(client, message) ---> __main__.py
-    ST_BN1_NAME = '👑 𝐎ᴡɴᴇʀ'
-    ST_BN1_URL = 'https://t.me/Sunil_Sharma_2_0_Bot'
-    ST_BN2_NAME = '📢 𝐔ᴘᴅᴀᴛᴇs'
-    ST_BN2_URL = 'https://t.me/SSBotsUpdates'
-    ST_BN3_NAME = ' 𝐁ᴀsᴇ 𝐑ᴇᴘᴏ'
-    ST_BN3_URL = 'https://github.com/SilentDemonSD/WZML-X/tree/master'
-    ST_MSG = '''<b>🙏 𝐓ʜᴀɴᴋs 😇  
-𝐍ᴏᴡ, 𝐈 𝐖ɪʟʟ 𝐒ᴇɴᴅ 𝐀ʟʟ 𝐘ᴏᴜʀ 𝐋ᴇᴇᴄʜ/𝐌ɪʀʀᴏʀ 𝐅ɪʟᴇs & 𝐋ɪɴᴋs 𝐇ᴇʀᴇ.  
-🚀 𝐒ᴛᴀʀᴛ 𝐔sɪɴɢ 𝐌ᴇ 𝐈ɴ 𝐆ʀᴏᴜᴘ & 𝐄ɴᴊᴏʏ ❤️</b>'''
+    ST_BN1_NAME = 'Update Cn'
+    ST_BN1_URL = 'https://t.me/zonexushubupdates'
+    ST_BN2_NAME = 'Support'
+    ST_BN2_URL = 'https://t.me/teamzxzoneupdatesofficial'
+    ST_MSG = '''<b> Now, Bot will send you all your files and links here. Start Using Now... </b>'''
 
     ST_BOTPM = """<i>𝐍ᴏᴡ, 𝐓ʜɪs 𝐛ᴏᴛ ᴡɪʟʟ sᴇɴᴅ ᴀʟʟ ʏᴏᴜʀ 𝐅ɪʟᴇs ᴀɴᴅ 𝐋ɪɴᴋs ʜᴇʀᴇ. 𝐒ᴛᴀʀᴛ 𝐔sɪɴɢ ...</i>"""
     ST_UNAUTH = """<i>𝐘ᴏᴜ 𝐀ʀᴇ ɴᴏᴛ ᴀᴜᴛʜᴏʀɪᴢᴇᴅ ᴜsᴇʀ! 𝐃ᴇᴘʟᴏʏ ʏᴏᴜʀ ᴏᴡɴ 𝐖𝐙𝐌𝐋-𝐗 𝐌ɪʀʀᴏʀ-𝐋ᴇᴇᴄʜ 𝐛ᴏᴛ</i>"""
