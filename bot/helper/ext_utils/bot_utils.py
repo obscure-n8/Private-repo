@@ -305,7 +305,6 @@ def get_readable_message():
             msg += BotTheme(
                 "BAR",
                 Bar=get_progress_bar_string(download.progress()),
-                percent=download.progress(),
             )
             msg += BotTheme(
                 "PROCESSED",
@@ -318,6 +317,14 @@ def get_readable_message():
             msg += BotTheme("ELAPSED", Elapsed=get_readable_time(elapsed))
             msg += BotTheme("ENGINE", Engine=download.eng())
             msg += BotTheme("STA_MODE", InMode=in_mode, OutMode=out_mode)
+            if download.status() in [
+                MirrorStatus.STATUS_SPLITTING,
+                MirrorStatus.STATUS_EXTRACTING,
+                MirrorStatus.STATUS_ARCHIVING,
+                MirrorStatus.STATUS_CHECKING,
+                MirrorStatus.STATUS_METADATA,
+            ]:
+                msg += BotTheme("PROCESSING_STATUS", ProcessingStatus=download.progress())
             if hasattr(download, "seeders_num"):
                 try:
                     msg += BotTheme("SEEDERS", Seeders=download.seeders_num())
