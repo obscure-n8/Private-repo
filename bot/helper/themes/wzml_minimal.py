@@ -2,335 +2,320 @@
 class WZMLStyle:
     # ----------------------
     # async def start(client, message) ---> __main__.py
-    ST_BN1_NAME = 'Update Cn'
+    ST_BN1_NAME = 'Update Channel'
     ST_BN1_URL = 'https://t.me/zonexushubupdates'
-    ST_BN2_NAME = 'Support'
-    ST_BN2_URL = 'https://t.me/teamzxzoneupdatesofficial'
-    ST_MSG = '''<b> Now, Bot will send you all your files and links here. Start Using Now... </b>'''
+    ST_BN2_NAME = 'Leech Group'
+    ST_BN2_URL = 'https://t.me/zonexusmlgroup4gb'
+    ST_MSG = '''<b>Now, this bot will send you all your files and links here. Start using now...</b>'''
 
-    ST_BOTPM = """<i>𝐍ᴏᴡ, 𝐓ʜɪs 𝐛ᴏᴛ ᴡɪʟʟ sᴇɴᴅ ᴀʟʟ ʏᴏᴜʀ 𝐅ɪʟᴇs ᴀɴᴅ 𝐋ɪɴᴋs ʜᴇʀᴇ. 𝐒ᴛᴀʀᴛ 𝐔sɪɴɢ ...</i>"""
-    ST_UNAUTH = """<i>𝐘ᴏᴜ 𝐀ʀᴇ ɴᴏᴛ ᴀᴜᴛʜᴏʀɪᴢᴇᴅ ᴜsᴇʀ! 𝐃ᴇᴘʟᴏʏ ʏᴏᴜʀ ᴏᴡɴ 𝐖𝐙𝐌𝐋-𝐗 𝐌ɪʀʀᴏʀ-𝐋ᴇᴇᴄʜ 𝐛ᴏᴛ</i>"""
-    OWN_TOKEN_GENERATE = (
-    """<b>𝐓ᴇᴍᴘᴏʀᴀʀʏ 𝐓ᴏᴋᴇɴ ɪs ɴᴏᴛ ʏᴏᴜʀs!</b>\n\n<i>𝐊ɪɴᴅʟʏ ɢᴇɴᴇʀᴀᴛᴇ ʏᴏᴜʀ ᴏᴡɴ.</i>"""
-)
-    USED_TOKEN = (
-    """<b>𝐓ᴇᴍᴘᴏʀᴀʀʏ 𝐓ᴏᴋᴇɴ ᴀʟʀᴇᴀᴅʏ ᴜsᴇᴅ!</b>\n\n<i>𝐊ɪɴᴅʟʏ ɢᴇɴᴇʀᴀᴛᴇ ᴀ ɴᴇᴡ ᴏɴᴇ.</i>"""
-)
-    LOGGED_PASSWORD = """<b>𝐁ᴏᴛ 𝐀ʟʀᴇᴀᴅʏ 𝐋ᴏɢɢᴇᴅ 𝐈ɴ ᴠɪᴀ 𝐏ᴀssᴡᴏʀᴅ</b>\n\n<i>𝐍ᴏ ɴᴇᴇᴅ ᴛᴏ 𝐀ᴄᴄᴇᴘᴛ 𝐓ᴇᴍᴘ 𝐓ᴏᴋᴇɴs.</i>"""
-    ACTIVATE_BUTTON = "𝐀ᴄᴛɪᴠᴀᴛᴇ 𝐓ᴇᴍᴘᴏʀᴀʀʏ 𝐓ᴏᴋᴇɴ"
-    TOKEN_MSG = """<b><u>𝐆ᴇɴᴇʀᴀᴛᴇᴅ 𝐓ᴇᴍᴘᴏʀᴀʀʏ 𝐋ᴏɢɪɴ 𝐓ᴏᴋᴇɴ!</u></b>
-<b>𝐓ᴇᴍᴘ 𝐓ᴏᴋᴇɴ:</b> <code>{token}</code>
-<b>𝐕ᴀʟɪᴅɪᴛʏ:</b> {validity}"""
-# ---------------------
-# async def token_callback(_, query): ---> __main__.py
-    ACTIVATED = "✅️ 𝐀ᴄᴛɪᴠᴀᴛᴇᴅ ✅"
-# ---------------------
-# async def login(_, message): --> __main__.py
-    LOGGED_IN = "<b>𝐀ʟʀᴇᴀᴅʏ 𝐁ᴏᴛ 𝐋ᴏɢɪɴ 𝐈ɴ!</b>"
-    INVALID_PASS = "<b>𝐈ɴᴠᴀʟɪᴅ 𝐏ᴀssᴡᴏʀᴅ!</b>\n\n𝐊ɪɴᴅʟʏ ᴘᴜᴛ ᴛʜᴇ ᴄᴏʀʀᴇᴄᴛ 𝐏ᴀssᴡᴏʀᴅ ."
-    PASS_LOGGED = "<b>𝐁ᴏᴛ 𝐏ᴇʀᴍᴀɴᴇɴᴛ 𝐋ᴏɢɪɴ 𝐒ᴜᴄᴄᴇssғᴜʟʟʏ!</b>"
-    LOGIN_USED = "<b>𝐁ᴏᴛ 𝐋ᴏɢɪɴ 𝐔sᴀɢᴇ :</b>\n\n<code>/cmd [password]</code>"
-# ---------------------
-# async def log(_, message): ---> __main__.py
-    LOG_DISPLAY_BT = "📑 𝐋ᴏɢ 𝐃ɪsᴘʟᴀʏ"
-    WEB_PASTE_BT = "📨 𝐖ᴇʙ 𝐏ᴀsᴛᴇ (SB)"
-# ---------------------
-# async def bot_help(client, message): ---> __main__.py
-    BASIC_BT = "𝐁ᴀsɪᴄ"
-    USER_BT = "𝐔sᴇʀs"
-    MICS_BT = "𝐌ɪᴄs"
-    O_S_BT = "𝐎ᴡɴᴇʀ & 𝐒ᴜᴅᴏs"
-    CLOSE_BT = "𝐂ʟᴏsᴇ"
-    HELP_HEADER = "㊂ <b><i>𝐇ᴇʟᴘ 𝐆ᴜɪᴅᴇ 𝐌ᴇɴᴜ!</i></b>\n\n<b>𝐍ᴏᴛᴇ: <i>𝐂ʟɪᴄᴋ ᴏɴ ᴀɴʏ 𝐂ᴍᴅ ᴛᴏ sᴇᴇ ᴍᴏʀᴇ ᴍɪɴᴏʀ ᴅᴇᴛᴀʟɪs.</i></b>"
+    ST_BOTPM = """<i>Now, this bot will send all your files and links here. Start Using ...</i>"""
+    ST_UNAUTH = """<i>You are not an authorized user! Deploy your own ZxZone-Master-MLTB Mirror-Leech bot.</i>"""
+    OWN_TOKEN_GENERATE = """<b>Temporary Token is not yours!</b>\n\n<i>Kindly generate your own.</i>"""
+    USED_TOKEN = """<b>Temporary Token already used!</b>\n\n<i>Kindly generate a new one.</i>"""
+    LOGGED_PASSWORD = """<b>Bot Already Logged In via Password</b>\n\n<i>No Need to Accept Temp Tokens.</i>"""
+    ACTIVATE_BUTTON = "Activate Temporary Token"
+    TOKEN_MSG = """<b><u>Generated Temporary Login Token!</u></b>
+<b>Temp Token:</b> <code>{token}</code>
+<b>Validity:</b> {validity}"""
+    # ---------------------
+    # async def token_callback(_, query): ---> __main__.py
+    ACTIVATED = "Activated"
+    # ---------------------
+    # async def login(_, message): --> __main__.py
+    LOGGED_IN = "<b>Already Bot Login In!</b>"
+    INVALID_PASS = "<b>Invalid Password!</b>\n\nKindly put the correct Password."
+    PASS_LOGGED = "<b>Bot Permanent Login Successfully!</b>"
+    LOGIN_USED = "<b>Bot Login Usage :</b>\n\n<code>/cmd [password]</code>"
+    # ---------------------
+    # async def log(_, message): ---> __main__.py
+    LOG_DISPLAY_BT = "Log Display"
+    WEB_PASTE_BT = "Web Paste (SB)"
+    # ---------------------
+    # async def bot_help(client, message): ---> __main__.py
+    BASIC_BT = "Basic"
+    USER_BT = "Users"
+    MICS_BT = "Miscs"
+    O_S_BT = "Owner & Sudos"
+    CLOSE_BT = "Close"
+    HELP_HEADER = "Help Guide Menu!\n\nNOTE: Click on any CMD to see more minor details."
 
     # async def stats(client, message):
-    BOT_STATS = """┎⌬ <b><i>𝐁ᴏᴛ 𝐒ᴛᴀᴛɪsᴛɪᴄs :</i></b>
-┖ <b>𝐁ᴏᴛ 𝐔ᴘᴛɪᴍᴇ :</b> {bot_uptime}
+    BOT_STATS = """Bot Statistics:
+┖ Bot Uptime : {bot_uptime}
 
-┎ <b><i>𝐑ᴀᴍ ( 𝐌ᴇᴍᴏʀʏ ) :</i></b>
+RAM ( MEMORY ) :
 ┃ {ram_bar} {ram}%
-┖ <b>𝐔 :</b> {ram_u} | <b>𝐅 :</b> {ram_f} | <b>𝐓 :</b> {ram_t}
+┖ U : {ram_u} | F : {ram_f} | T : {ram_t}
 
-┎ <b><i>𝐒ᴡᴀᴘ 𝐌ᴇᴍᴏʀʏ :</i></b>
+SWAP MEMORY :
 ┃ {swap_bar} {swap}%
-┖ <b>𝐔 :</b> {swap_u} | <b>𝐅 :</b> {swap_f} | <b>𝐓 :</b> {swap_t}
+┖ U : {swap_u} | F : {swap_f} | T : {swap_t}
 
-┎ <b><i>𝐃ɪsᴋ :</i></b>
+DISK :
 ┃ {disk_bar} {disk}%
-┃ <b>𝐓ᴏᴛᴀʟ 𝐃ɪsᴋ 𝐑ᴇᴀᴅ :</b> {disk_read}
-┃ <b>𝐓ᴏᴛᴀʟ 𝐃ɪsᴋ 𝐖ʀɪᴛᴇ :</b> {disk_write}
-┖ <b>𝐔 :</b> {disk_u} | <b>𝐅 :</b> {disk_f} | <b>𝐓 :</b> {disk_t}
+┃ Total Disk Read : {disk_read}
+┃ Total Disk Write : {disk_write}
+┖ U : {disk_u} | F : {disk_f} | T : {disk_t}
 """
 
-    SYS_STATS = """┎⌬ <b><i>𝐎s 𝐒ʏsᴛᴇᴍ :</i></b>
-┠ <b>𝐎s 𝐔ᴘᴛɪᴍᴇ :</b> {os_uptime}
-┠ <b>𝐎s 𝐕ᴇʀsɪᴏɴ :</b> {os_version}
-┖ <b>𝐎s 𝐀ʀᴄʜ :</b> {os_arch}
+    SYS_STATS = """OS SYSTEM :
+┠ OS Uptime : {os_uptime}
+┠ OS Version : {os_version}
+┖ OS Arch : {os_arch}
 
-┎⌬ <b><i>𝐍ᴇᴛᴡᴏʀᴋ 𝐒ᴛᴀᴛs :</i></b>
-┠ <b>𝐔ᴘʟᴏᴀᴅ 𝐃ᴀᴛᴀ :</b> {up_data}
-┠ <b>𝐃ᴏᴡɴʟᴏᴀᴅ 𝐃ᴀᴛᴀ :</b> {dl_data}
-┠ <b>𝐏ᴋᴛs 𝐒ᴇɴᴛ :</b> {pkt_sent}k
-┠ <b>𝐏ᴋᴛs 𝐑ᴇᴄᴇɪᴠᴇᴅ :</b> {pkt_recv}k
-┖ <b>𝐓ᴏᴛᴀʟ 𝐈/𝐎 𝐃ᴀᴛᴀ :</b> {tl_data}
+NETWORK STATS :
+┠ Upload Data: {up_data}
+┠ Download Data: {dl_data}
+┠ Pkts Sent: {pkt_sent}k
+┠ Pkts Received: {pkt_recv}k
+┖ Total I/O Data: {tl_data}
 
-┎ <b><i>𝐂ᴘᴜ :</i></b>
+CPU :
 ┃ {cpu_bar} {cpu}%
-┠ <b>𝐂ᴘᴜ 𝐅ʀᴇǫᴜᴇɴᴄʏ :</b> {cpu_freq}
-┠ <b>𝐒ʏsᴛᴇᴍ 𝐀ᴠɢ 𝐋ᴏᴀᴅ :</b> {sys_load}
-┠ <b>𝐏-𝐂ᴏʀᴇ(s) :</b> {p_core} | <b>𝐕-𝐂ᴏʀᴇ(s) :</b> {v_core}
-┠ <b>𝐓ᴏᴛᴀʟ 𝐂ᴏʀᴇ(s) :</b> {total_core}
-┖ <b>𝐔sᴀʙʟᴇ 𝐂ᴘᴜ(s) :</b> {cpu_use}
+┠ CPU Frequency : {cpu_freq}
+┠ System Avg Load : {sys_load}
+┠ P-Core(s) : {p_core} | V-Core(s) : {v_core}
+┠ Total Core(s) : {total_core}
+┖ Usable CPU(s) : {cpu_use}
 """
-    REPO_STATS = """⌬ <b><i>𝐑ᴇᴘᴏ 𝐒ᴛᴀᴛɪsᴛɪᴄs :</i></b>
-┠ <b>𝐁ᴏᴛ 𝐔ᴘᴅᴀᴛᴇᴅ :</b> {last_commit}
-┠ <b>𝐂ᴜʀʀᴇɴᴛ 𝐕ᴇʀsɪᴏɴ :</b> {bot_version}
-┠ <b>𝐋ᴀᴛᴇsᴛ 𝐕ᴇʀsɪᴏɴ :</b> {lat_version}
-┖ <b>𝐋ᴀsᴛ 𝐂ʜᴀɴɢᴇ𝐋ᴏɢ :</b> {commit_details}
+    REPO_STATS = """Repo Statistics:
+┠ Bot Updated : {last_commit}
+┠ Current Version : {bot_version}
+┠ Latest Version : {lat_version}
+┖ Last ChangeLog : {commit_details}
 
-┎⌬ <b>𝐑ᴇᴍᴀʀᴋs :</b> <code>{remarks}</code>
+Remarks : <code>{remarks}</code>
 """
+    BOT_LIMITS = """Bot Limitations:
+┠ Direct Limit : {DL} GB
+┠ Torrent Limit : {TL} GB
+┠ GDrive Limit : {GL} GB
+┠ YT-DLP Limit : {YL} GB
+┠ Playlist Limit : {PL}
+┠ Mega Limit : {ML} GB
+┠ Clone Limit : {CL} GB
+┖ Leech Limit : {LL} GB
 
-    BOT_LIMITS = """⌬ <b><i>𝐁ᴏᴛ 𝐋ɪᴍɪᴛᴀᴛɪᴏɴs :</i></b>
-┠ <b>𝐃ɪʀᴇᴄᴛ 𝐋ɪᴍɪᴛ :</b> {DL} GB
-┠ <b>𝐓ᴏʀʀᴇɴᴛ 𝐋ɪᴍɪᴛ :</b> {TL} GB
-┠ <b>𝐆𝐃ʀɪᴠᴇ 𝐋ɪᴍɪᴛ :</b> {GL} GB
-┠ <b>𝐘ᴛ-𝐃ʟᴘ 𝐋ɪᴍɪᴛ :</b> {YL} GB
-┠ <b>𝐏ʟᴀʏʟɪsᴛ 𝐋ɪᴍɪᴛ :</b> {PL}
-┠ <b>𝐌ᴇɢᴀ 𝐋ɪᴍɪᴛ :</b> {ML} GB
-┠ <b>𝐂ʟᴏɴᴇ 𝐋ɪᴍɪᴛ :</b> {CL} GB
-┖ <b>𝐋ᴇᴇᴄʜ 𝐋ɪᴍɪᴛ :</b> {LL} GB
-
-┎ <b>𝐓ᴏᴋᴇɴ 𝐕ᴀʟɪᴅɪᴛʏ :</b> {TV}
-┠ <b>𝐔sᴇʀ 𝐓ɪᴍᴇ 𝐋ɪᴍɪᴛ :</b> {UTI} / task
-┠ <b>𝐔sᴇʀ 𝐏ᴀʀᴀʟʟᴇʟ 𝐓ᴀsᴋs :</b> {UT}
-┖ <b>𝐁ᴏᴛ 𝐏ᴀʀᴀʟʟᴇʟ 𝐓ᴀsᴋs :</b> {BT}
+Token Validity : {TV}
+┠ User Time Limit : {UTI} / task
+┠ User Parallel Tasks : {UT}
+┖ Bot Parallel Tasks : {BT}
 """
 
     # ---------------------
 
     # async def restart(client, message): ---> __main__.py
-    RESTARTING = "<i>𝐑ᴇsᴛᴀʀᴛɪɴɢ...</i>"
+    RESTARTING = "<i>Restarting...</i>"
     # ---------------------
 
     # async def restart_notification(): ---> __main__.py
-    RESTART_SUCCESS = """┎⌬ <b><i>𝐑ᴇsᴛᴀʀᴛᴇᴅ 𝐒ᴜᴄᴄᴇssғᴜʟʟʏ!</i></b>
-┠ <b>𝐃ᴀᴛᴇ:</b> {date}
-┠ <b>𝐓ɪᴍᴇ:</b> {time}
-┠ <b>𝐓ɪᴍᴇ𝐙ᴏɴᴇ:</b> {timz}
-┖ <b>𝐕ᴇʀsɪᴏɴ:</b> {version}"""
-    RESTARTED = """⌬ <b><i>𝐁ᴏᴛ 𝐑ᴇsᴛᴀʀᴛᴇᴅ!</i></b>"""
+    RESTART_SUCCESS = """Restarted Successfully!
+┠ Date: {date}
+┠ Time: {time}
+┠ TimeZone: {timz}
+┖ Version: {version}"""
+    RESTARTED = """Bot Restarted!"""
     # ---------------------
 
 # async def restart_notification(): ---> __main__.py
-    RESTART_SUCCESS = """┎⌬ <b><i>𝐑ᴇsᴛᴀʀᴛᴇᴅ 𝐒ᴜᴄᴄᴇssғᴜʟʟʏ!</i></b>
-┠ <b>𝐃ᴀᴛᴇ:</b> {date}
-┠ <b>𝐓ɪᴍᴇ:</b> {time}
-┠ <b>𝐓ɪᴍᴇ𝐙ᴏɴᴇ:</b> {timz}
-┖ <b>𝐕ᴇʀsɪᴏɴ:</b> {version}"""
+    RESTART_SUCCESS = """Restarted Successfully!
+┠ Date: {date}
+┠ Time: {time}
+┠ TimeZone: {timz}
+┖ Version: {version}"""
 
-    RESTARTED = """⌬ <b><i>𝐁ᴏᴛ 𝐑ᴇsᴛᴀʀᴛᴇᴅ!</i></b>"""
+    RESTARTED = """Bot Restarted!"""
 
 # ---------------------
 
 # async def ping(client, message): ---> __main__.py
-    PING = "<i>𝐒ᴛᴀʀᴛɪɴɢ 𝐏ɪɴɢ...</i>"
-    PING_VALUE = "<b>𝐏ᴏɴɢ</b>\n<code>{value} ms...</code>"
+    PING = "<i>Starting Ping...</i>"
+    PING_VALUE = "<b>Pong</b>\n<code>{value} ms...</code>"
 
 # ---------------------
 
 # async def onDownloadStart(self): --> tasks_listener.py
-    LINKS_START = """<b><i>┎𝐓ᴀsᴋ 𝐒ᴛᴀʀᴛᴇᴅ</i></b>
-┠ <b>𝐌ᴏᴅᴇ:</b> {Mode}
-┖ <b>𝐁ʏ:</b> {Tag}\n\n"""
+    LINKS_START = """Task Started
+┠ Mode: {Mode}
+┖ By: {Tag}\n\n"""
 
-    LINKS_SOURCE = """➲ <b>𝐒ᴏᴜʀᴄᴇ:</b>
-┖ <b>𝐀ᴅᴅᴇᴅ 𝐎ɴ:</b> {On}
+    LINKS_SOURCE = """➲ Source:
+┖ Added On: {On}
 ------------------------------------------
 {Source}
 ------------------------------------------\n\n"""
 
 # async def __msg_to_reply(self): ---> pyrogramEngine.py
-    PM_START = "➲ <b><u>𝐓ᴀsᴋ 𝐒ᴛᴀʀᴛᴇᴅ :</u></b>\n┖ <b>𝐒ᴏᴜʀᴄᴇ 𝐋ɪɴᴋ:</b> <a href='{msg_link}'>𝐂ʟɪᴄᴋ 𝐇ᴇʀᴇ</a>"
-    L_LOG_START = "➲ <b><u>𝐋ᴇᴇᴄʜ 𝐒ᴛᴀʀᴛᴇᴅ :</u></b>\n┠ <b>𝐔sᴇʀ :</b> {mention} ( #ID{uid} )\n┖ <b>𝐒ᴏᴜʀᴄᴇ 𝐋ɪɴᴋ :</b> <a href='{msg_link}'>𝐂ʟɪᴄᴋ 𝐇ᴇʀᴇ</a>"
+    PM_START = "➲ Task Started :\n┖ Link: <a href='{msg_link}'>Click Here</a>"
+    L_LOG_START = "➲ Leech Started :\n┠ User : {mention} ( #ID{uid} )\n┖ Source : <a href='{msg_link}'>Click Here</a>"
     # async def onUploadComplete(): ---> tasks_listener.py
-    NAME = "<b> 🎥 𝐓ɪᴛᴛʟᴇ :</b><b> {Name}</b>\n\n"
-    SIZE = "┎ <b>📦 𝐒ɪᴢᴇ : </b>{Size}\n"
-    ELAPSE = "┠ <b>⏱️ 𝐄ʟᴀᴘsᴇᴅ : </b>{Time}\n"
-    MODE = "┠ <b>🎛️ 𝐌ᴏᴅᴇ : </b>{Mode}\n"
-    CREDIT = "━✦❘༻ <b><a href=https://t.me/SSBotsUpdates> 𝐏𝐨ᴡᴇʀᴇᴅ 𝐁ʏ : 𝐒𝐒 𝐁ᴏᴛs</a><b> ༺❘✦━\n\n"
+    NAME = "<b>{Name}</b>\n┃\n"
+    SIZE = "┠ Size: {Size}\n"
+    ELAPSE = "┠ Elapsed: {Time}\n"
+    MODE = "┠ Mode: {Mode}\n"
+    CREDIT = ""
 
     # ----- LEECH -------
-    L_TOTAL_FILES = "┠ <b>🗂️ 𝐓ᴏᴛᴀʟ 𝐅ɪʟᴇs : </b>{Files}\n"
-    L_CORRUPTED_FILES = "┠ <b>🛑 𝐂ᴏʀʀᴜᴘᴛᴇᴅ 𝐅ɪʟᴇs : </b>{Corrupt}\n"
-    L_CC = "┖ <b>✨ 𝐁ʏ : </b>{Tag}\n\n"
-    PM_BOT_MSG = "<b>☝️ 𝐅ɪʟᴇ(ꜱ) 𝐇ᴀᴠᴇ ʙᴇᴇɴ 𝐒ᴇɴᴛ ᴀʙᴏᴠᴇ</b>"
-    L_BOT_MSG = "<b>📩 𝐅ɪʟᴇ(ꜱ) 𝐇ᴀᴠᴇ ʙᴇᴇɴ 𝐒ᴇɴᴛ ᴛᴏ 𝐁ᴏᴛ 𝐏𝐌</b>"
-    L_LL_MSG = "<b>🔗 𝐅ɪʟᴇ(ꜱ) 𝐇ᴀᴠᴇ ʙᴇᴇɴ 𝐒ᴇɴᴛ. 𝐀ᴄᴄᴇss ᴠɪᴀ 𝐋ɪɴᴋs...</b>\n"
+    L_TOTAL_FILES = "┠ Total Files: {Files}\n"
+    L_CORRUPTED_FILES = "┠ Corrupted Files: {Corrupt}\n"
+    L_CC = "┖ By: {Tag}\n\n"
+    PM_BOT_MSG = "➲ File(s) have been Sent above"
+    L_BOT_MSG = "➲ File(s) have been Sent to Bot PM (Private)"
+    L_LL_MSG = "➲ File(s) have been Sent. Access via Links...\n"
 
-    M_TYPE = "┠ <b>𝐓ʏᴘᴇ : </b>{Mimetype}\n"
-    M_SUBFOLD = "┠ <b>𝐒ᴜʙ𝐅ᴏʟᴅᴇʀs : </b>{Folder}\n"
-    TOTAL_FILES = "┠ <b>𝐅ɪʟᴇs : </b>{Files}\n"
-    RCPATH = "┠ <b>𝐏ᴀᴛʜ : </b><code>{RCpath}</code>\n"
-    M_CC = "┖ <b>𝐁ʏ : </b>{Tag}\n\n"
-    M_BOT_MSG = "➲ <b><i>𝐋ɪɴᴋ(s) 𝐇𝐚𝐯𝐞 𝐛ᴇᴇɴ 𝐒ᴇɴᴛ ᴛᴏ 𝐁ᴏᴛ 𝐏ᴍ </i></b>"
+    M_TYPE = "┠ Type: {Mimetype}\n"
+    M_SUBFOLD = "┠ SubFolders: {Folder}\n"
+    TOTAL_FILES = "┠ Files: {Files}\n"
+    RCPATH = "┠ Path: <code>{RCpath}</code>\n"
+    M_CC = "┖ By: {Tag}\n\n"
+    M_BOT_MSG = "➲ Link(s) have been Sent to Bot PM (Private)"
     # ----- BUTTONS -------
-    CLOUD_LINK = "☁️ 𝐂ʟᴏᴜᴅ 𝐋ɪɴᴋ"
-    SAVE_MSG = "📨 𝐒ᴀᴠᴇ 𝐌ᴇssᴀɢᴇ"
-    RCLONE_LINK = "♻️ 𝐑𝐂ʟᴏɴᴇ 𝐋ɪɴᴋ"
-    DDL_LINK = "📎 {Serv} 𝐋ɪɴᴋ"
-    SOURCE_URL = "🔐 𝐒ᴏᴜʀᴄᴇ 𝐋ɪɴᴋ"
-    INDEX_LINK_F = "🗂 𝐈ɴᴅᴇx 𝐋ɪɴᴋ"
-    INDEX_LINK_D = "⚡ 𝐈ɴᴅᴇx 𝐋ɪɴᴋ"
-    VIEW_LINK = "🌐 𝐕ɪᴇᴡ 𝐋ɪɴᴋ"
-    CHECK_PM = "📥 𝐕ɪᴇᴡ ɪɴ 𝐁ᴏᴛ 𝐏ᴍ"
-    CHECK_LL = "🖇 𝐕ɪᴇᴡ ɪɴ 𝐋ɪɴᴋs 𝐋ᴏɢ"
-    MEDIAINFO_LINK = "📃 𝐌ᴇᴅɪᴀ𝐈ɴғᴏ"
-    SCREENSHOTS = "🖼 𝐒ᴄʀᴇᴇɴ𝐒ʜᴏᴛs"
+    CLOUD_LINK = "Cloud Link"
+    SAVE_MSG = "Save Message"
+    RCLONE_LINK = "RClone Link"
+    DDL_LINK = "{Serv} Link"
+    SOURCE_URL = "Source Link"
+    INDEX_LINK_F = "Index Link"
+    INDEX_LINK_D = "Index Link"
+    VIEW_LINK = "View Link"
+    CHECK_PM = "View in Bot PM"
+    CHECK_LL = "View in Links Log"
+    MEDIAINFO_LINK = "MediaInfo"
+    SCREENSHOTS = "ScreenShots"
      # ---------------------
 
 
     # def get_readable_message(): ---> bot_utilis.py
     ####--------OVERALL MSG HEADER----------
-    STATUS_NAME = "<b>🎥 𝐓ɪᴛᴛʟᴇ : </b><code> {Name}</code>"
+    STATUS_NAME = "<b>{Name}</b>"
 
     #####---------PROGRESSIVE STATUS-------
-    mm = "\n\n┏━━༻«<b> <a href=https://t.me/SSBotsUpdates>★彡 𝐒𝐒 𝐁ᴏᴛs 彡★</a></b> »༺━━┓"
-    BAR = "\n┠ {Bar}"
-    PROCESSED = "\n┠<b>⚡𝐏ʀᴏᴄᴇssᴇᴅ :</b> {Processed}"
-    STATUS = '\n┠ <b>🪄 𝐒ᴛᴀᴛᴜs :</b> <a href="{Url}">{Status}</a>'
-    ETA = "\n┠<b>⏳ 𝐄ᴛᴀ :</b> {Eta}"
-    SPEED = "\n┠<b>☘️ 𝐒ᴘᴇᴇᴅ :</b> {Speed}"
-    ELAPSED = "\n┠ <b>🕓 𝐄ʟᴀᴘsᴇᴅ :</b> {Elapsed}"
-    ENGINE = "\n┠ <b>🪩 𝐄ɴɢɪɴᴇ :</b> {Engine}"
-    STA_MODE = "\n┠ <b>🌐 𝐌ᴏᴅᴇ :</b> {Mode}"
-    SEEDERS = "\n┠ <b>🌱 𝐒ᴇᴇᴅᴇʀs :</b> {Seeders}"
-    LEECHERS = "\n┠<b>☘️ 𝐋ᴇᴇᴄʜᴇʀs :</b> {Leechers}"
+    mm = "\n\n"
+    BAR = "\n┃ {Bar}"
+    PROCESSED = "\n┠ Processed: {Processed}"
+    STATUS = '\n┠ Status: <a href="{Url}">{Status}</a>'
+    ETA = "\n┠ ETA: {Eta}"
+    SPEED = "\n┠ Speed: {Speed}"
+    ELAPSED = "\n┠ Elapsed: {Elapsed}"
+    ENGINE = "\n┠ Engine: {Engine}"
+    STA_MODE = "\n┠ Mode: {Mode}"
+    SEEDERS = "\n┠ Seeders: {Seeders}"
+    LEECHERS = "\n┠ Leechers: {Leechers}"
 
-    ####--------𝐒𝐄𝐄𝐃𝐈𝐍𝐆----------
-    SEED_SIZE = "\n┠ <b>📦 𝐒ɪᴢᴇ : </b>{Size}"
-    SEED_SPEED = "\n┠ <b>🚀 𝐒ᴘᴇᴇᴅ : </b> {Speed} | "
-    UPLOADED = "<b>☁️ 𝐔ᴘʟᴏᴀᴅᴇᴅ : </b> {Upload}"
-    RATIO = "\n┠ <b>📊 𝐑ᴀᴛɪᴏ : </b> {Ratio} | "
-    TIME = "<b>⏳ 𝐓ɪᴍᴇ : </b> {Time}"
-    SEED_ENGINE = "\n┠ <b>⚙️ 𝐄ɴɢɪɴᴇ:</b> {Engine}"
+    ####--------SEEDING----------
+    SEED_SIZE = "\n┠ Size: {Size}"
+    SEED_SPEED = "\n┠ Speed: {Speed} | "
+    UPLOADED = "Uploaded: {Upload}"
+    RATIO = "\n┠ Ratio: {Ratio} | "
+    TIME = "Time: {Time}"
+    SEED_ENGINE = "\n┠ Engine: {Engine}"
 
-    ####--------𝐍ᴏɴ-𝐏ʀᴏɢʀᴇssɪᴠᴇ + 𝐍ᴏɴ 𝐒𝐄𝐄𝐃𝐈𝐍𝐆----------
-    STATUS_SIZE = "\n┠ <b>📦 𝐒ɪᴢᴇ : </b>{Size}"
-    NON_ENGINE = "\n┠ <b>⚙️ 𝐄ɴɢɪɴᴇ :</b> {Engine}"
+    ####--------NON-PROGRESSIVE + NON SEEDING----------
+    STATUS_SIZE = "\n┠ Size: {Size}"
+    NON_ENGINE = "\n┠ Engine: {Engine}"
 
     ####--------OVERALL MSG FOOTER----------
-    USER = "\n┠ <b>👤 𝐔sᴇʀ :</b> <code>{User}</code>"
-    ID = "\n┠ <b>🆔 𝐈𝐃 :</b> <code>{Id}</code>"
-    BTSEL = "\n┠ <b>✅ 𝐒ᴇʟᴇᴄᴛ :</b> {Btsel}"
-    CANCEL = "\n┠ {Cancel}\n"
-    mn = "┗━━༻« <b><a href=https://t.me/SSBotsUpdates>★彡 𝐒𝐒 𝐁ᴏᴛs 彡★</a></b> »༺━━┛\n\n"
+    USER = "\n┠ User: <code>{User}</code>"
+    ID = "\n┠ ID: <code>{Id}</code>"
+    BTSEL = "\n┠ Select: {Btsel}"
+    CANCEL = "\n┖ {Cancel}\n"
+    mn = "\n\n"
 
     ####------FOOTER--------
-    FOOTER = "┎⌬ <b><i>📊 𝐒𝐒 𝐁ᴏᴛs 𝐒ᴛᴀᴛs ⋆｡°✩₊˚.༄</i></b>\n"
-    TASKS = "┠ <b> 𝐓ᴀsᴋs:</b> {Tasks}\n"
-    BOT_TASKS = "┠ <b> 𝐓ᴀsᴋs:</b> {Tasks}/{Ttask} | <b>🟢 𝐀ᴠʟ:</b> {Free}\n"
-    Cpu = "┠🖥️<b> 𝐂ᴘᴜ:</b> {cpu}% | "
-    FREE = "<b>💿 𝐅:</b> {free} [{free_p}%]"
-    Ram = "\n┠ <b>🧠 𝐑ᴀᴍ:</b> {ram}% | "
-    uptime = "<b>⏳ 𝐔ᴘᴛɪᴍᴇ:</b> {uptime}"
-    DL = "\n┖ <b>🔻 𝐃ʟ:</b> {DL}/s | "
-    UL = "<b>🔺 𝐔ʟ:</b> {UL}/s"
+    FOOTER = "Bot Stats\n"
+    TASKS = "┠ Tasks: {Tasks}\n"
+    BOT_TASKS = "┠ Tasks: {Tasks}/{Ttask} | AVL: {Free}\n"
+    Cpu = "┠ CPU: {cpu}% | "
+    FREE = "F: {free} [{free_p}%]"
+    Ram = "\n┠ RAM: {ram}% | "
+    uptime = "UPTIME: {uptime}"
+    DL = "\n┖ DL: {DL}/s | "
+    UL = "UL: {UL}/s"
 
 
     ###--------BUTTONS-------
     PREVIOUS = "⫷"
-    REFRESH = "📑𝐏ᴀɢᴇ\n{Page}"
+    REFRESH = "Pages\n{Page}"
     NEXT = "⫸"
     # ---------------------
 
     # STOP_DUPLICATE_MSG: ---> clone.py, aria2_listener.py, task_manager.py
-    STOP_DUPLICATE = (
-        "📁 𝐅ɪʟᴇ/𝐅ᴏʟᴅᴇʀ ɪs ᴀʟʀᴇᴀᴅʏ ᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ 𝐃ʀɪᴠᴇ.\n 𝐇ᴇʀᴇ ᴀʀᴇ {content} ʟɪsᴛ ʀᴇsᴜʟᴛs:"
-    )
+    STOP_DUPLICATE = "File/Folder is already available in Drive.\nHere are {content} list results:"
     # ---------------------
 
     # async def countNode(_, message): ----> gd_count.py
-    COUNT_MSG = "<b>🔎 𝐂ᴏᴜɴᴛɪɴɢ:</b> <code>{LINK}</code>"
-    COUNT_NAME = "📂 <b><i>{COUNT_NAME}</i></b>\n┃\n"
-    COUNT_SIZE = "┠ 📏 <b>𝐒ɪᴢᴇ:</b> {COUNT_SIZE}\n"
-    COUNT_TYPE = "┠ 🗂 <b>𝐓ʏᴘᴇ:</b> {COUNT_TYPE}\n"
-    COUNT_SUB = "┠ 📁 <b>𝐒ᴜʙ𝐅ᴏʟᴅᴇʀs:</b> {COUNT_SUB}\n"
-    COUNT_FILE = "┠ 📄 <b>𝐅ɪʟᴇs:</b> {COUNT_FILE}\n"
-    COUNT_CC = "┖ 👤 <b>𝐁ʏ:</b> {COUNT_CC}\n"
+    COUNT_MSG = "<b>Counting:</b> <code>{LINK}</code>"
+    COUNT_NAME = "<b><i>{COUNT_NAME}</i></b>\n┃\n"
+    COUNT_SIZE = "┠ Size: {COUNT_SIZE}\n"
+    COUNT_TYPE = "┠ Type: {COUNT_TYPE}\n"
+    COUNT_SUB = "┠ SubFolders: {COUNT_SUB}\n"
+    COUNT_FILE = "┠ Files: {COUNT_FILE}\n"
+    COUNT_CC = "┖ By: {COUNT_CC}\n"
 
 # ---------------------
 
 # LIST ---> gd_list.py
-    LIST_SEARCHING = "<b>𝐒ᴇᴀʀᴄʜɪɴɢ 𝐟ᴏʀ <i>{NAME}</i></b>"
-    LIST_FOUND = "<b>𝐅ᴏᴜɴᴅ {NO} ʀᴇsᴜʟᴛ 𝐟ᴏʀ <i>{NAME}</i></b>"
-    LIST_NOT_FOUND = "𝐍ᴏ ʀᴇsᴜʟᴛ 𝐟ᴏᴜɴᴅ 𝐟ᴏʀ <i>{NAME}</i>"
+    LIST_SEARCHING = "<b>Searching for <i>{NAME}</i></b>"
+    LIST_FOUND = "<b>Found {NO} result for <i>{NAME}</i></b>"
+    LIST_NOT_FOUND = "No result found for <i>{NAME}</i>"
 # ---------------------
 
 # async def mirror_status(_, message): ----> status.py
-    NO_ACTIVE_DL = """<i>𝐍ᴏ 𝐀ᴄᴛɪᴠᴇ 𝐃ᴏᴡɴʟᴏᴀᴅs!</i>
- 
-⌬ <b><i>𝐁ᴏᴛ 𝐒ᴛᴀᴛs</i></b>
-┠ <b>CPU:</b> {cpu}% | <b>F:</b> {free} [{free_p}%]
-┖ <b>RAM:</b> {ram} | <b>𝐔ᴘᴛɪᴍᴇ:</b> {uptime}
+    NO_ACTIVE_DL = """<i>No Active Downloads!</i>
+
+Bot Stats
+┠ CPU: {cpu}% | F: {free} [{free_p}%]
+┖ RAM: {ram} | UPTIME: {uptime}
 """
 # ---------------------
 
 # USER Setting --> user_setting.py
-    USER_SETTING = """㊂ <b><u>𝐔sᴇʀ 𝐒ᴇᴛᴛɪɴɢs :</u></b>
+    USER_SETTING = """User Settings :
         
-┎<b> 𝐍ᴀᴍᴇ :</b> {NAME}
-┠<b> 𝐈𝐃:</b> <code>{ID}</code>
-┠<b> 𝐓ᴇʟᴇɢʀᴀᴍ 𝐃𝐂 :</b> {DC}
-┖<b> 𝐋ᴀɴɢᴜᴀɢᴇ :</b> {LANG}
+┎ Name : {NAME}
+┠ ID: <code>{ID}</code>
+┠ Telegram DC : {DC}
+┖ Language : {LANG}
 
-➲ <u><b>𝐀ᴠᴀɪʟᴀʙʟᴇ 𝐀ʀɢs:</b></u>
-• <b>-s</b> or <b>-set</b>: 𝐒ᴇᴛ 𝐃ɪʀᴇᴄᴛʟʏ ᴠɪᴀ 𝐀ʀɢ
-
-✦❘༻ <b><a href=https://t.me/SSBotsUpdates>𝐏𝐨ᴡᴇʀᴇᴅ 𝐁ʏ : 𝐒𝐒 𝐁ᴏᴛs</a><b> ༺❘✦
+➲ Available Args:
+• <b>-s</b> or <b>-set</b>: Set Directly via Arg
 """
 
-    UNIVERSAL = """㊂ <b><u>𝐔ɴɪᴠᴇʀsᴀʟ 𝐒ᴇᴛᴛɪɴɢs : {NAME}</u></b>
+    UNIVERSAL = """Universal Settings : {NAME}
 
-┎<b> 𝐘T-DLP 𝐎ᴘᴛɪᴏɴs :</b> <b><code>{YT}</code></b>
-┠<b> 𝐃ᴀɪʟʏ 𝐓ᴀsᴋs :</b> <code>{DT}</code> ᴘᴇʀ ᴅᴀʏ
-┠<b> 𝐋ᴀsᴛ 𝐁ᴏᴛ 𝐔sᴇᴅ :</b> <code>{LAST_USED}</code>
-┠<b> 𝐔sᴇʀ 𝐒ᴇssɪᴏɴ :</b> <code>{USESS}</code>
-┠<b> 𝐌ᴇᴅɪᴀɪɴғᴏ 𝐌ᴏᴅᴇ :</b> <code>{MEDIAINFO}</code>
-┠<b> 𝐒ᴀᴠᴇ 𝐌ᴏᴅᴇ :</b> <code>{SAVE_MODE}</code>
-┖<b> 𝐔sᴇʀ 𝐁ᴏᴛ 𝐏ᴍ :</b> <code>{BOT_PM}</code>
-
-✦❘༻ <b><a href=https://t.me/SSBotsUpdates>𝐏𝐨ᴡᴇʀᴇᴅ 𝐁ʏ : 𝐒𝐒 𝐁ᴏᴛs</a><b> ༺❘✦
+┎ YT-DLP Options : <b><code>{YT}</code></b>
+┠ Daily Tasks : <code>{DT}</code> per day
+┠ Last Bot Used : <code>{LAST_USED}</code>
+┠ User Session : <code>{USESS}</code>
+┠ MediaInfo Mode : <code>{MEDIAINFO}</code>
+┠ Save Mode : <code>{SAVE_MODE}</code>
+┖ User Bot PM : <code>{BOT_PM}</code>
 """
 
-    MIRROR = """㊂ <b><u>𝐌ɪʀʀᴏʀ/𝐂ʟᴏɴᴇ 𝐒ᴇᴛᴛɪɴɢs : {NAME}</u></b>
+    MIRROR = """Mirror/Clone Settings : {NAME}
 
-┎<b> 𝐑𝐂ʟᴏɴᴇ 𝐂ᴏɴꜰɪɢ :</b> <i>{RCLONE}</i>
-┠<b> 𝐌ɪʀʀᴏʀ 𝐏ʀᴇꜰɪx :</b> <code>{MPREFIX}</code>
-┠<b> 𝐌ɪʀʀᴏʀ 𝐒ᴜꜰꜰɪx :</b> <code>{MSUFFIX}</code>
-┠<b> 𝐌ɪʀʀᴏʀ 𝐑ᴇᴍɴᴀᴍᴇ :</b> <code>{MREMNAME}</code>
-┠<b> 𝐃ᴅʟ 𝐒ᴇʀᴠᴇʀ(s) :</b> <i>{DDL_SERVER}</i>
-┠<b> 𝐔sᴇʀ 𝐓ᴅ 𝐌ᴏᴅᴇ :</b> <i>{TMODE}</i>
-┠<b> 𝐓ᴏᴛᴀʟ 𝐔sᴇʀ 𝐓ᴅ(s) :</b> <i>{USERTD}</i>
-┖<b> 𝐃ᴀɪʟʏ 𝐌ɪʀʀᴏʀ :</b> <code>{DM}</code> ᴘᴇʀ ᴅᴀʏ
-
-✦❘༻ <b><a href=https://t.me/SSBotsUpdates>𝐏𝐨ᴡᴇʀᴇᴅ 𝐁ʏ : 𝐒𝐒 𝐁ᴏᴛs</a><b> ༺❘✦
+┎ RClone Config : <i>{RCLONE}</i>
+┠ Mirror Prefix : <code>{MPREFIX}</code>
+┠ Mirror Suffix : <code>{MSUFFIX}</code>
+┠ Mirror Remname : <code>{MREMNAME}</code>
+┠ DDL Server(s) : <i>{DDL_SERVER}</i>
+┠ User TD Mode : <i>{TMODE}</i>
+┠ Total User TD(s) : <i>{USERTD}</i>
+┖ Daily Mirror : <code>{DM}</code> per day
 """
 
-    LEECH = """㊂ <b><u>𝐋ᴇᴇᴄʜ 𝐒ᴇᴛᴛɪɴɢs : {NAME}</u></b>
+    LEECH = """Leech Settings for {NAME}
 
-┎<b> 𝐃ᴀɪʟʏ 𝐋ᴇᴇᴄʜ : </b><code>{DL}</code> ᴘᴇʀ ᴅᴀʏ
-┠<b> 𝐋ᴇᴇᴄʜ 𝐓ʏᴘᴇ :</b> <i>{LTYPE}</i>
-┠<b> 𝐂ᴜsᴛᴏᴍ 𝐓ʜᴜᴍʙɴᴀɪʟ :</b> <i>{THUMB}</i>
-┠<b> 𝐋ᴇᴇᴄʜ 𝐒ᴘʟɪᴛ 𝐒ɪᴢᴇ :</b> <code>{SPLIT_SIZE}</code>
-┠<b> 𝐄ǫᴜᴀʟ 𝐒ᴘʟɪᴛs :</b> <i>{EQUAL_SPLIT}</i>
-┠<b> 𝐌ᴇᴅɪᴀ 𝐆ʀᴏᴜᴘ :</b> <i>{MEDIA_GROUP}</i>
-┠<b> 𝐋ᴇᴇᴄʜ 𝐂ᴀᴘᴛɪᴏɴ :</b> <code>{LCAPTION}</code>
-┠<b> 𝐋ᴇᴇᴄʜ 𝐏ʀᴇꜰɪx :</b> <code>{LPREFIX}</code>
-┠<b> 𝐋ᴇᴇᴄʜ 𝐒ᴜꜰꜰɪx :</b> <code>{LSUFFIX}</code>
-┠<b> 𝐋ᴇᴇᴄʜ 𝐃ᴜᴍᴘs :</b> <code>{LDUMP}</code>
-┠<b> 𝐋ᴇᴇᴄʜ 𝐑ᴇᴍɴᴀᴍᴇ :</b> <code>{LREMNAME}</code>
-┖<b> 𝐋ᴇᴇᴄʜ 𝐌ᴇᴛᴀᴅᴀᴛᴀ :</b> <code>{LMETA}</code>
-
-✦❘༻ <b><a href=https://t.me/SSBotsUpdates>𝐏𝐨ᴡᴇʀᴇᴅ 𝐁ʏ : 𝐒𝐒 𝐁ᴏᴛs</a><b> ༺❘✦
+┎ Daily Leech : <code>{DL}</code> per day
+┠ Leech Type : <i>{LTYPE}</i>
+┠ Custom Thumbnail : <i>{THUMB}</i>
+┠ Leech Split Size : <code>{SPLIT_SIZE}</code>
+┠ Equal Splits : <i>{EQUAL_SPLIT}</i>
+┠ Media Group : <i>{MEDIA_GROUP}</i>
+┠ Leech Caption : <code>{LCAPTION}</code>
+┠ Leech Prefix : <code>{LPREFIX}</code>
+┠ Leech Suffix : <code>{LSUFFIX}</code>
+┠ Leech Dumps : <code>{LDUMP}</code>
+┠ Leech Remname : <code>{LREMNAME}</code>
+┖ Leech Metadata : <code>{LMETA}</code>
 """
