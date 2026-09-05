@@ -285,6 +285,8 @@ def get_readable_message():
             else ""
         )
         elapsed = time() - download.message.date.timestamp()
+        in_mode = getattr(download, 'in_mode', lambda: 'N/A')()
+        out_mode = getattr(download, 'out_mode', lambda: 'N/A')()
         msg += BotTheme(
             "STATUS_NAME",
             Name=(
@@ -293,6 +295,8 @@ def get_readable_message():
                 and elapsed >= config_dict["STATUS_UPDATE_INTERVAL"]
                 else escape(f"{download.name()}")
             ),
+            User=download.message.from_user.mention(style="html"),
+            Id=download.message.from_user.id,
         )
         if download.status() not in [
             MirrorStatus.STATUS_SEEDING,
@@ -300,18 +304,20 @@ def get_readable_message():
             msg += BotTheme("mm")
             msg += BotTheme(
                 "BAR",
-                Bar=f"{get_progress_bar_string(download.progress())} {download.progress()}",
+                Bar=get_progress_bar_string(download.progress()),
+                percent=download.progress(),
             )
             msg += BotTheme(
                 "PROCESSED",
-                Processed=f"{download.processed_bytes()} of {download.size()}",
+                Processed=f"{download.processed_bytes()}",
+                Total=f"{download.size()}",
             )
             msg += BotTheme("STATUS", Status=download.status(), Url=msg_link)
-            msg += BotTheme("ETA", Eta=download.eta())
+            msg += BotTheme("ETA", ETA=download.eta())
             msg += BotTheme("SPEED", Speed=download.speed())
             msg += BotTheme("ELAPSED", Elapsed=get_readable_time(elapsed))
             msg += BotTheme("ENGINE", Engine=download.eng())
-            msg += BotTheme("STA_MODE", Mode=download.upload_details["mode"])
+            msg += BotTheme("STA_MODE", InMode=in_mode, OutMode=out_mode)
             if hasattr(download, "seeders_num"):
                 try:
                     msg += BotTheme("SEEDERS", Seeders=download.seeders_num())
@@ -332,16 +338,7 @@ def get_readable_message():
             msg += BotTheme("STATUS_SIZE", Size=download.size())
             msg += BotTheme("NON_ENGINE", Engine=download.eng())
 
-        msg += BotTheme("USER", User=download.message.from_user.mention(style="html"))
-        msg += BotTheme("ID", Id=download.message.from_user.id)
-        if (download.eng()).startswith("qBit"):
-            msg += BotTheme(
-                "BTSEL", Btsel=f"/{BotCommands.BtSelectCommand}_{download.gid()}"
-            )
-        msg += BotTheme(
-            "CANCEL", Cancel=f"/{BotCommands.CancelMirror}_{download.gid()}"
-        )
-        msg += BotTheme("mn")
+        msg += BotTheme("CANCEL_BUTTON", gid=download.gid())
 
     if len(msg) == 0:
         return None, None
