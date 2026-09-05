@@ -6,6 +6,8 @@ class WZMLStyle:
     ST_BN1_URL = 'https://t.me/zonexushubupdates'
     ST_BN2_NAME = 'Leech Group'
     ST_BN2_URL = 'https://t.me/zonexusmlgroup4gb'
+    ST_BN3_NAME = 'ZxZone Bot'
+    ST_BN3_URL = 'https://t.me/supoorrzx'
     ST_MSG = '''<b>Now, this bot will send you all your files and links here. Start using now...</b>'''
 
     ST_BOTPM = """<i>Now, this bot will send all your files and links here. Start Using ...</i>"""
