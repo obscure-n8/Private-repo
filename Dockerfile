@@ -3,7 +3,6 @@ FROM ssbots/ssbots_heroku:latest
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
 
-# Install ffmpeg
 RUN apt-get update && apt-get install -y ffmpeg
 
 COPY requirements.txt .
