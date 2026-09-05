@@ -111,8 +111,8 @@ Token Validity : {TV}
 ------------------------------------------
 {Source}
 ------------------------------------------\n\n'''
-    PM_START = '➲ Task Started :\n┖ Link: <a href='{msg_link}'>Click Here</a>'
-    L_LOG_START = '➲ Leech Started :\n┠ User : {mention} ( #ID{uid} )\n┖ Source : <a href='{msg_link}'>Click Here</a>'
+    PM_START = "➲ Task Started :\n┖ Link: <a href='{msg_link}'>Click Here</a>"
+    L_LOG_START = "➲ Leech Started :\n┠ User : {mention} ( #ID{uid} )\n┖ Source : <a href='{msg_link}'>Click Here</a>"
     
     NAME = '{Name}\n\nTask By {User} ( #ID{Id} ) [Link]'
     SIZE = '┠ Size: {Size}\n'
@@ -147,7 +147,6 @@ Token Validity : {TV}
     MEDIAINFO_LINK = 'MediaInfo'
     SCREENSHOTS = 'ScreenShots'
 
-    # ========== CUSTOM STATUS FORMAT ==========
     STATUS_NAME = '{Name}\n\nTask By {User} ( #ID{Id} ) [Link]'
     mm = ''
     BAR = '\n┟ {Bar}'
