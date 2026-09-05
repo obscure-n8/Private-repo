@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 class WZMLStyle:
     # ----------------------
+    # async def start(client, message) ---> __main__.py
     ST_BN1_NAME = 'Update Channel'
     ST_BN1_URL = 'https://t.me/zonexushubupdates'
     ST_BN2_NAME = 'Leech Group'
@@ -18,13 +19,21 @@ class WZMLStyle:
     TOKEN_MSG = """<b><u>Generated Temporary Login Token!</u></b>
 <b>Temp Token:</b> <code>{token}</code>
 <b>Validity:</b> {validity}"""
+    # ---------------------
+    # async def token_callback(_, query): ---> __main__.py
     ACTIVATED = "Activated"
+    # ---------------------
+    # async def login(_, message): --> __main__.py
     LOGGED_IN = "<b>Already Bot Login In!</b>"
     INVALID_PASS = "<b>Invalid Password!</b>\n\nKindly put the correct Password."
     PASS_LOGGED = "<b>Bot Permanent Login Successfully!</b>"
     LOGIN_USED = "<b>Bot Login Usage :</b>\n\n<code>/cmd [password]</code>"
+    # ---------------------
+    # async def log(_, message): ---> __main__.py
     LOG_DISPLAY_BT = "Log Display"
     WEB_PASTE_BT = "Web Paste (SB)"
+    # ---------------------
+    # async def bot_help(client, message): ---> __main__.py
     BASIC_BT = "Basic"
     USER_BT = "Users"
     MICS_BT = "Miscs"
@@ -32,6 +41,7 @@ class WZMLStyle:
     CLOSE_BT = "Close"
     HELP_HEADER = "Help Guide Menu!\n\nNOTE: Click on any CMD to see more minor details."
 
+    # async def stats(client, message):
     BOT_STATS = """Bot Statistics:
 ┖ Bot Uptime : {bot_uptime}
 
@@ -94,33 +104,60 @@ Token Validity : {TV}
 ┖ Bot Parallel Tasks : {BT}
 """
 
+    # ---------------------
+
+    # async def restart(client, message): ---> __main__.py
     RESTARTING = "<i>Restarting...</i>"
+    # ---------------------
+
+    # async def restart_notification(): ---> __main__.py
     RESTART_SUCCESS = """Restarted Successfully!
 ┠ Date: {date}
 ┠ Time: {time}
 ┠ TimeZone: {timz}
 ┖ Version: {version}"""
     RESTARTED = """Bot Restarted!"""
+    # ---------------------
 
+# async def restart_notification(): ---> __main__.py
+    RESTART_SUCCESS = """Restarted Successfully!
+┠ Date: {date}
+┠ Time: {time}
+┠ TimeZone: {timz}
+┖ Version: {version}"""
+
+    RESTARTED = """Bot Restarted!"""
+
+# ---------------------
+
+# async def ping(client, message): ---> __main__.py
     PING = "<i>Starting Ping...</i>"
     PING_VALUE = "<b>Pong</b>\n<code>{value} ms...</code>"
 
+# ---------------------
+
+# async def onDownloadStart(self): ---> tasks_listener.py
     LINKS_START = """Task Started
 ┠ Mode: {Mode}
 ┖ By: {Tag}\n\n"""
+
     LINKS_SOURCE = """➲ Source:
 ┖ Added On: {On}
 ------------------------------------------
 {Source}
 ------------------------------------------\n\n"""
+
+# async def __msg_to_reply(self): ---> pyrogramEngine.py
     PM_START = "➲ Task Started :\n┖ Link: <a href='{msg_link}'>Click Here</a>"
     L_LOG_START = "➲ Leech Started :\n┠ User : {mention} ( #ID{uid} )\n┖ Source : <a href='{msg_link}'>Click Here</a>"
+    # async def onUploadComplete(): ---> tasks_listener.py
     NAME = "{Name}\n\nTask By {User} ( #ID{Id} ) [Link]"
     SIZE = "┠ Size: {Size}\n"
     ELAPSE = "┠ Elapsed: {Time}\n"
     MODE = "┠ Mode: {Mode}\n"
     CREDIT = ""
 
+    # ----- LEECH -------
     L_TOTAL_FILES = "┠ Total Files: {Files}\n"
     L_CORRUPTED_FILES = "┠ Corrupted Files: {Corrupt}\n"
     L_CC = "┖ By: {Tag}\n\n"
@@ -134,6 +171,7 @@ Token Validity : {TV}
     RCPATH = "┠ Path: <code>{RCpath}</code>\n"
     M_CC = "┖ By: {Tag}\n\n"
     M_BOT_MSG = "➲ Link(s) have been Sent to Bot PM (Private)"
+    # ----- BUTTONS -------
     CLOUD_LINK = "Cloud Link"
     SAVE_MSG = "Save Message"
     RCLONE_LINK = "RClone Link"
@@ -146,8 +184,14 @@ Token Validity : {TV}
     CHECK_LL = "View in Links Log"
     MEDIAINFO_LINK = "MediaInfo"
     SCREENSHOTS = "ScreenShots"
+     # ---------------------
 
+
+    # def get_readable_message(): ---> bot_utilis.py
+    ####--------OVERALL MSG HEADER----------
     STATUS_NAME = "{Name}\n\nTask By {User} ( #ID{Id} ) [Link]"
+
+    #####---------PROGRESSIVE STATUS-------
     mm = ""
     BAR = "\n┟ {Bar}"
     PROCESSED = "\n┠ Processed → {Processed} of {Total}"
@@ -160,7 +204,9 @@ Token Validity : {TV}
     SEEDERS = "\n┠ Seeders: {Seeders}"
     LEECHERS = "\n┠ Leechers: {Leechers}"
     CANCEL_BUTTON = "\n┖ Stop → /c_{gid}"
+    PROCESSING_STATUS = "\n┠ Processing → {ProcessingStatus}"
 
+    ####--------SEEDING----------
     SEED_SIZE = "\n┠ Size: {Size}"
     SEED_SPEED = "\n┠ Speed: {Speed} | "
     UPLOADED = "Uploaded: {Upload}"
@@ -168,15 +214,18 @@ Token Validity : {TV}
     TIME = "Time: {Time}"
     SEED_ENGINE = "\n┠ Engine: {Engine}"
 
+    ####--------NON-PROGRESSIVE + NON SEEDING----------
     STATUS_SIZE = "\n┠ Size: {Size}"
     NON_ENGINE = "\n┠ Engine: {Engine}"
 
+    ####--------OVERALL MSG FOOTER----------
     USER = ""
     ID = ""
     BTSEL = ""
     CANCEL = ""
     mn = "\n\n"
 
+    ####------FOOTER--------
     FOOTER = "\n\n⌬ Bot Stats\n"
     TASKS = "┟ Tasks: {Tasks}\n"
     BOT_TASKS = "┟ Tasks: {Tasks}/{Ttask} | AVL: {Free}\n"
@@ -187,12 +236,19 @@ Token Validity : {TV}
     DL = "\n┟ DL: {DL}/s | "
     UL = "UL: {UL}/s"
 
+
+    ###--------BUTTONS-------
     PREVIOUS = "⫷"
     REFRESH = "🔄 Refresh"
     NEXT = "⫸"
     PAGE_INFO = "Page {current}/{total}"
+    # ---------------------
 
+    # STOP_DUPLICATE_MSG: ---> clone.py, aria2_listener.py, task_manager.py
     STOP_DUPLICATE = "File/Folder is already available in Drive.\nHere are {content} list results:"
+    # ---------------------
+
+    # async def countNode(_, message): ----> gd_count.py
     COUNT_MSG = "<b>Counting:</b> <code>{LINK}</code>"
     COUNT_NAME = "<b><i>{COUNT_NAME}</i></b>\n┃\n"
     COUNT_SIZE = "┠ Size: {COUNT_SIZE}\n"
@@ -201,16 +257,24 @@ Token Validity : {TV}
     COUNT_FILE = "┠ Files: {COUNT_FILE}\n"
     COUNT_CC = "┖ By: {COUNT_CC}\n"
 
+# ---------------------
+
+# LIST ---> gd_list.py
     LIST_SEARCHING = "<b>Searching for <i>{NAME}</i></b>"
     LIST_FOUND = "<b>Found {NO} result for <i>{NAME}</i></b>"
     LIST_NOT_FOUND = "No result found for <i>{NAME}</i>"
+# ---------------------
+
+# async def mirror_status(_, message): ----> status.py
     NO_ACTIVE_DL = """<i>No Active Downloads!</i>
 
 ⌬ Bot Stats
 ┟ CPU → {cpu}% | F → {free} [{free_p}%]
 ┖ RAM → {ram}% | UP → {uptime}
 """
+# ---------------------
 
+# USER Setting --> user_setting.py
     USER_SETTING = """User Settings :
         
 ┎ Name : {NAME}
