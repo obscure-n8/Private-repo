@@ -136,7 +136,7 @@ Token Validity : {TV}
 
 # ---------------------
 
-# async def onDownloadStart(self): --> tasks_listener.py
+# async def onDownloadStart(self): ---> tasks_listener.py
     LINKS_START = """Task Started
 ┠ Mode: {Mode}
 ┖ By: {Tag}\n\n"""
@@ -193,16 +193,17 @@ Token Validity : {TV}
 
     #####---------PROGRESSIVE STATUS-------
     mm = "\n\n"
-    BAR = "\n┃ {Bar}"
-    PROCESSED = "\n┠ Processed: {Processed}"
-    STATUS = '\n┠ Status: <a href="{Url}">{Status}</a>'
-    ETA = "\n┠ ETA: {Eta}"
-    SPEED = "\n┠ Speed: {Speed}"
-    ELAPSED = "\n┠ Elapsed: {Elapsed}"
-    ENGINE = "\n┠ Engine: {Engine}"
-    STA_MODE = "\n┠ Mode: {Mode}"
+    BAR = "\n┟ [{Bar}] {percentage}%"
+    PROCESSED = "\n┠ Processed → {Processed} of {Total}"
+    STATUS = '\n┠ Status → {Status}'
+    ETA = "\n┠ Time → {ETA}"
+    SPEED = "\n┠ Speed → {Speed}"
+    ELAPSED = "\n┠ Elapsed → {Elapsed}"
+    ENGINE = "\n┠ Engine → {Engine}"
+    STA_MODE = "\n┠ In Mode → {InMode}\n┠ Out Mode → {OutMode}"
     SEEDERS = "\n┠ Seeders: {Seeders}"
     LEECHERS = "\n┠ Leechers: {Leechers}"
+    CANCEL_BUTTON = "\n┖ Stop → /c_{gid}"
 
     ####--------SEEDING----------
     SEED_SIZE = "\n┠ Size: {Size}"
@@ -224,21 +225,22 @@ Token Validity : {TV}
     mn = "\n\n"
 
     ####------FOOTER--------
-    FOOTER = "Bot Stats\n"
-    TASKS = "┠ Tasks: {Tasks}\n"
-    BOT_TASKS = "┠ Tasks: {Tasks}/{Ttask} | AVL: {Free}\n"
-    Cpu = "┠ CPU: {cpu}% | "
-    FREE = "F: {free} [{free_p}%]"
-    Ram = "\n┠ RAM: {ram}% | "
-    uptime = "UPTIME: {uptime}"
-    DL = "\n┖ DL: {DL}/s | "
+    FOOTER = "\n\n⌬ Bot Stats\n"
+    TASKS = "┟ Tasks: {Tasks}\n"
+    BOT_TASKS = "┟ Tasks: {Tasks}/{Ttask} | AVL: {Free}\n"
+    Cpu = "┟ CPU → {cpu}% | "
+    FREE = "F → {free} [{free_p}%]"
+    Ram = "\n┟ RAM → {ram}% | "
+    uptime = "UP → {uptime}"
+    DL = "\n┟ DL: {DL}/s | "
     UL = "UL: {UL}/s"
 
 
     ###--------BUTTONS-------
     PREVIOUS = "⫷"
-    REFRESH = "Pages\n{Page}"
+    REFRESH = "🔄 Refresh"
     NEXT = "⫸"
+    PAGE_INFO = "Page {current}/{total}"
     # ---------------------
 
     # STOP_DUPLICATE_MSG: ---> clone.py, aria2_listener.py, task_manager.py
@@ -265,9 +267,9 @@ Token Validity : {TV}
 # async def mirror_status(_, message): ----> status.py
     NO_ACTIVE_DL = """<i>No Active Downloads!</i>
 
-Bot Stats
-┠ CPU: {cpu}% | F: {free} [{free_p}%]
-┖ RAM: {ram} | UPTIME: {uptime}
+⌬ Bot Stats
+┟ CPU → {cpu}% | F → {free} [{free_p}%]
+┖ RAM → {ram}% | UP → {uptime}
 """
 # ---------------------
 
