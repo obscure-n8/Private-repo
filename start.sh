@@ -7,5 +7,4 @@ if ! pgrep -x "aria2c" > /dev/null; then
     aria2c --conf-path=/usr/src/app/aria2c.conf --daemon
 fi
 
-python3 update.py
 exec python3 -m bot
